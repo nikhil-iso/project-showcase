@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ProjectList, type Project } from "../components/ProjectList";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -11,13 +12,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-type Project = {
-  title: string;
-  description: string;
-  tech: string[];
-  links?: { label: string; href: string }[];
-};
 
 const personalProjects: Project[] = [
   {
@@ -46,39 +40,6 @@ const personalProjects: Project[] = [
     description:
       "In-progress computer vision platform that detects patterns through a webcam and drives motors to point at the target. Inspired by Carbon Robotics' laser weeder. Modular detection, tracking, and actuation stages.",
     tech: ["Python", "OpenCV", "Motor Control", "Embedded Systems"],
-  },
-];
-
-const teamProjects: Project[] = [
-  {
-    title: "Project \"Theseus\" — USST Rocketry (President & Propulsion Lead)",
-    description:
-      "Redesign of the team's M-class rocket for Launch Canada 2026. Composite boat tail, threaded external motor retention, thrust plate with clean load path into fuselage, structural FEA at 8 kN thrust loads. 26-person team.",
-    tech: ["SolidWorks", "Fusion 360", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
-  },
-  {
-    title: "Project \"UP\" — USST Rocketry (Propulsion Lead)",
-    description:
-      "M-class high power rocket at Launch Canada 2025. Led propulsion integration and aft-end subsystem: composite boat tail, aluminum thrust plate, threaded crown motor retention. 8th nationally, 16,500 ft apogee, Spirit Bear Award.",
-    tech: ["SolidWorks", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
-  },
-  {
-    title: "FRC 4627 Manning Robotics — Drivetrain Lead",
-    description:
-      "Led drivetrain architecture for the 2023 FRC season. Developed the team's first swerve drive prototype alongside an 8:1 dual tank drive. Torque-speed and gear ratio analysis using motor data sheets and Excel-based modeling. 40-person team.",
-    tech: ["SolidWorks", "Excel", "Swerve Drive", "Gear Ratio Optimization"],
-  },
-  {
-    title: "Skills Alberta Robotics 2023 — Mechanical & Systems Lead",
-    description:
-      "3rd place provincially. Coordinated two-robot system: a mechanum-drive shooter and a dedicated collector bot. Focused on division of labor, repeatable scoring, and rapid prototyping under competition timelines.",
-    tech: ["Mechanum Drive", "Mechanical Design", "Embedded Control"],
-  },
-  {
-    title: "NASA Space Apps Challenge 2024 — ExoSpace",
-    description:
-      "48-hour hackathon build. Web platform for exploring NASA open data with map-first navigation, filterable exoplanet attributes, and accessibility-first explainers. Led product framing and dataset curation.",
-    tech: ["JavaScript", "HTML/CSS", "NASA Exoplanet Archive", "Data Visualization"],
   },
 ];
 
@@ -121,56 +82,7 @@ function Index() {
           <h2 className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Personal Projects
           </h2>
-          <ul className="space-y-8">
-            {personalProjects.map((p) => (
-              <li key={p.title} className="border-l-2 border-border pl-4">
-                <h3 className="font-medium">{p.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                  {p.description}
-                </p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  {p.tech.join(" · ")}
-                </p>
-                {p.links && (
-                  <div className="mt-2 flex gap-3 text-sm">
-                    {p.links.map((l) => (
-                      <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                        {l.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-16">
-          <h2 className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
-            Team Projects
-          </h2>
-          <ul className="space-y-8">
-            {teamProjects.map((p) => (
-              <li key={p.title} className="border-l-2 border-border pl-4">
-                <h3 className="font-medium">{p.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                  {p.description}
-                </p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  {p.tech.join(" · ")}
-                </p>
-                {p.links && (
-                  <div className="mt-2 flex gap-3 text-sm">
-                    {p.links.map((l) => (
-                      <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                        {l.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <ProjectList projects={personalProjects} />
         </section>
 
         <section className="mb-16">
