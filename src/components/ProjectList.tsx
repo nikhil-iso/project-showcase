@@ -1,23 +1,58 @@
 import { useState } from "react";
 
+export type DetailBlock =
+  | { type: "text"; content: string }
+  | { type: "image"; src: string; alt: string; caption?: string };
+
 export type Project = {
   title: string;
   description: string;
   tech: string[];
   links?: { label: string; href: string }[];
-  details?: string;
+  details?: DetailBlock[];
 };
+
+function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
+  return (
+    <div className="space-y-4">
+      {blocks.map((b, i) =>
+        b.type === "text" ? (
+          <p
+            key={i}
+            className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line"
+          >
+            {b.content}
+          </p>
+        ) : (
+          <figure key={i} className="space-y-1">
+            <img
+              src={b.src}
+              alt={b.alt}
+              loading="lazy"
+              className="w-full rounded border border-border"
+            />
+            {b.caption && (
+              <figcaption className="text-xs text-muted-foreground">
+                {b.caption}
+              </figcaption>
+            )}
+          </figure>
+        ),
+      )}
+    </div>
+  );
+}
 
 function ProjectMeta({ p }: { p: Project }) {
   return (
     <>
       <p className="text-sm leading-relaxed">{p.description}</p>
-      {p.details && (
-        <p className="mt-3 text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-          {p.details}
-        </p>
+      {p.details && p.details.length > 0 && (
+        <div className="mt-4">
+          <DetailBlocks blocks={p.details} />
+        </div>
       )}
-      <p className="mt-3 text-xs text-muted-foreground">{p.tech.join(" · ")}</p>
+      <p className="mt-4 text-xs text-muted-foreground">{p.tech.join(" · ")}</p>
       {p.links && (
         <div className="mt-3 flex gap-3 text-sm">
           {p.links.map((l) => (
@@ -88,9 +123,9 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                   ))}
                 </div>
               )}
-              {isOpen && p.details && (
-                <div className="mt-3 rounded border border-border bg-card p-3 text-sm text-muted-foreground leading-relaxed whitespace-pre-line md:hidden">
-                  {p.details}
+              {isOpen && p.details && p.details.length > 0 && (
+                <div className="mt-3 rounded border border-border bg-card p-3 md:hidden">
+                  <DetailBlocks blocks={p.details} />
                 </div>
               )}
             </li>
