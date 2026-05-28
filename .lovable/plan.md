@@ -1,37 +1,54 @@
-## Theme update (`src/styles.css`)
+## 1. Darker grey theme
 
-Replace the pure-black palette with dark grey + blue/purple accents (oklch):
-- `--background`: dark grey ~`oklch(0.22 0 0)`
-- `--card` / `--popover`: slightly lighter grey ~`oklch(0.26 0 0)`
-- `--secondary` / `--muted`: ~`oklch(0.30 0 0)`
-- `--border` / `--input`: ~`oklch(0.36 0 0)`
-- `--primary` / `--ring`: blue `oklch(0.62 0.18 250)` (kept)
-- `--accent`: purple `oklch(0.62 0.20 295)`
-- Foreground stays near-white
+In `src/styles.css`, drop the lightness on the grey tokens:
+- `--background`: `oklch(0.22 0 0)` → `oklch(0.16 0 0)`
+- `--card` / `--popover`: `oklch(0.26 0 0)` → `oklch(0.20 0 0)`
+- `--secondary` / `--muted`: `oklch(0.30 0 0)` → `oklch(0.24 0 0)`
+- `--border` / `--input`: `oklch(0.36 0 0)` → `oklch(0.30 0 0)`
 
-Header (`SiteHeader.tsx`) currently uses `bg-black`; switch to `bg-background` (or `bg-card`) so it matches the new grey.
+Blue primary and purple accent stay the same.
 
-## Project details: panel on desktop, dropdown on mobile
+## 2. Interleaved text + images in project details
 
-Add an optional `details` field to the `Project` type (long-form text/JSX — extra context beyond the short description). Populate for the existing projects in `index.tsx` and `team.tsx`.
+Change the `details` field on `Project` from a single string to an ordered array of blocks:
 
-Rework `ProjectList.tsx`:
-- Each project row gets a "Details" button.
-- Track a single selected project in local state.
-- Desktop (`md:` and up): clicking "Details" opens a slide-in panel docked to the right side of the viewport (fixed position, ~`max-w-md`, slides in via a CSS `transform` + `transition-transform` — no animation library). Backdrop click and a close button dismiss it. Uses `bg-card`, `border-l border-border`.
-- Mobile (`< md`): the same button toggles an inline dropdown that expands directly under the project (simple `max-height`/conditional render). No slide-over on mobile.
-- Implementation: render both, hide the desktop panel with `hidden md:block` and the mobile dropdown with `md:hidden`. Keep one piece of state per list.
+```ts
+type DetailBlock =
+  | { type: "text"; content: string }
+  | { type: "image"; src: string; alt: string; caption?: string };
 
-Used on both `/` (Personal Projects) and `/team` (Team Projects) via the shared `ProjectList`.
+type Project = {
+  // ...
+  details?: DetailBlock[];
+};
+```
+
+Update `ProjectList.tsx`:
+- The desktop slide-over panel and the mobile inline dropdown both render the `details` array in order: text paragraphs as `<p>`, images as `<figure>` with optional caption.
+- Images use plain `<img>` with `loading="lazy"`, rounded border, `max-w-full`.
+
+Convert the existing string `details` in `src/routes/index.tsx` and `src/routes/team.tsx` to `[{ type: "text", content: "..." }]` so nothing breaks. Leave them as text-only until you drop images in.
+
+## 3. How you add pictures
+
+Two options for each image:
+
+- **Upload through chat** — drag a PNG/JPG into the chat. I'll save it under `src/assets/<name>.jpg`, import it, and slot it into the right `details` block for the right project. Just tell me which project + roughly where ("after the first paragraph of MRFC").
+- **Drop into `public/`** — put files in `public/images/...` yourself and reference them as `/images/foo.jpg`. No import needed.
+
+Either way the data shape is the same:
+
+```ts
+details: [
+  { type: "text", content: "First paragraph..." },
+  { type: "image", src: mrfcBoard, alt: "MRFC v1 board", caption: "Rev A bring-up" },
+  { type: "text", content: "Second paragraph..." },
+  { type: "image", src: "/images/mrfc-flight.jpg", alt: "Test flight" },
+]
+```
 
 ## Files touched
-- `src/styles.css` — recolor tokens
-- `src/components/SiteHeader.tsx` — swap `bg-black` → `bg-background`
-- `src/components/ProjectList.tsx` — add details button + desktop slide panel + mobile dropdown
-- `src/routes/index.tsx` — add `details` content for personal projects
-- `src/routes/team.tsx` — add `details` content for team projects
-
-## Notes
-- No new dependencies; transitions are plain Tailwind CSS classes (`transition-transform`, `translate-x-full` ↔ `translate-x-0`).
-- Accent purple is available as `bg-accent` / `text-accent` for selective highlights (e.g. selected project, detail panel heading underline).
-- Per your "keep it simple" rule, animations are limited to a single transform transition on the desktop panel; mobile dropdown just shows/hides.
+- `src/styles.css` — darker grey tokens
+- `src/components/ProjectList.tsx` — render `DetailBlock[]` in panel + dropdown, export `DetailBlock` type
+- `src/routes/index.tsx` — convert existing `details` strings to `[{ type: "text", ... }]`
+- `src/routes/team.tsx` — same conversion
