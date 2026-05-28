@@ -1,29 +1,54 @@
-## Plan
+## 1. Darker grey theme
 
-### 1. Header component (`src/components/SiteHeader.tsx`)
-- Fixed header across the top, full width, black background, thin bottom border.
-- Left: name "Nikhil Patel" linking to `/`.
-- Middle: nav `Link`s — Home, Personal Projects, Team Projects.
-- Right: three buttons that open the PDFs in a new tab (`target="_blank"`):
-  - CV → `/cv.pdf`
-  - Resume → `/resume.pdf`
-  - Portfolio → `/portfolio.pdf`
-- Auto-hide behavior: a small `useEffect` tracks `window.scrollY`; when scrolling down past ~80px the header translates off-screen (`-translate-y-full`), when scrolling up it returns. Plain CSS `transition-transform`, no animation library.
-- Mounted in `src/routes/__root.tsx` so it appears on every page. Add top padding to page content to avoid being covered.
+In `src/styles.css`, drop the lightness on the grey tokens:
+- `--background`: `oklch(0.22 0 0)` → `oklch(0.16 0 0)`
+- `--card` / `--popover`: `oklch(0.26 0 0)` → `oklch(0.20 0 0)`
+- `--secondary` / `--muted`: `oklch(0.30 0 0)` → `oklch(0.24 0 0)`
+- `--border` / `--input`: `oklch(0.36 0 0)` → `oklch(0.30 0 0)`
 
-### 2. PDF files
-- You'll upload `cv.pdf`, `resume.pdf`, `portfolio.pdf`. I'll drop them in `public/` so they're served at `/cv.pdf` etc.
+Blue primary and purple accent stay the same.
 
-### 3. Split projects into two routes
-- Keep **Personal Projects** on the home page (`src/routes/index.tsx`) along with About and Skills. Remove the Team Projects section from index.
-- New route `src/routes/team.tsx` → `/team` containing only the Team Projects list, with its own `head()` meta (title "Team Projects — Nikhil Patel", matching description).
-- Move the `teamProjects` array and project list markup into the new file. Extract the repeated project list rendering into a small `ProjectList` component in `src/components/ProjectList.tsx` to avoid duplication.
+## 2. Interleaved text + images in project details
 
-### 4. Styling
-- Reuse existing semantic tokens (`bg-background`, `text-foreground`, `border-border`, `text-primary`). No new colors, no gradients.
-- Buttons in the header use the existing shadcn `Button` with `variant="outline"` and `size="sm"` to stay minimal.
+Change the `details` field on `Project` from a single string to an ordered array of blocks:
 
-### Files touched
-- new: `src/components/SiteHeader.tsx`, `src/components/ProjectList.tsx`, `src/routes/team.tsx`
-- edit: `src/routes/__root.tsx` (mount header), `src/routes/index.tsx` (remove team section, use ProjectList)
-- add: `public/cv.pdf`, `public/resume.pdf`, `public/portfolio.pdf` (your uploads)
+```ts
+type DetailBlock =
+  | { type: "text"; content: string }
+  | { type: "image"; src: string; alt: string; caption?: string };
+
+type Project = {
+  // ...
+  details?: DetailBlock[];
+};
+```
+
+Update `ProjectList.tsx`:
+- The desktop slide-over panel and the mobile inline dropdown both render the `details` array in order: text paragraphs as `<p>`, images as `<figure>` with optional caption.
+- Images use plain `<img>` with `loading="lazy"`, rounded border, `max-w-full`.
+
+Convert the existing string `details` in `src/routes/index.tsx` and `src/routes/team.tsx` to `[{ type: "text", content: "..." }]` so nothing breaks. Leave them as text-only until you drop images in.
+
+## 3. How you add pictures
+
+Two options for each image:
+
+- **Upload through chat** — drag a PNG/JPG into the chat. I'll save it under `src/assets/<name>.jpg`, import it, and slot it into the right `details` block for the right project. Just tell me which project + roughly where ("after the first paragraph of MRFC").
+- **Drop into `public/`** — put files in `public/images/...` yourself and reference them as `/images/foo.jpg`. No import needed.
+
+Either way the data shape is the same:
+
+```ts
+details: [
+  { type: "text", content: "First paragraph..." },
+  { type: "image", src: mrfcBoard, alt: "MRFC v1 board", caption: "Rev A bring-up" },
+  { type: "text", content: "Second paragraph..." },
+  { type: "image", src: "/images/mrfc-flight.jpg", alt: "Test flight" },
+]
+```
+
+## Files touched
+- `src/styles.css` — darker grey tokens
+- `src/components/ProjectList.tsx` — render `DetailBlock[]` in panel + dropdown, export `DetailBlock` type
+- `src/routes/index.tsx` — convert existing `details` strings to `[{ type: "text", ... }]`
+- `src/routes/team.tsx` — same conversion
