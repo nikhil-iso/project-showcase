@@ -2,7 +2,8 @@ import { useState } from "react";
 
 export type DetailBlock =
   | { type: "text"; content: string }
-  | { type: "image"; src: string; alt: string; caption?: string };
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "video"; src: string; alt: string; caption?: string; poster?: string };
 
 export type Project = {
   title: string;
@@ -15,15 +16,40 @@ export type Project = {
 function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
   return (
     <div className="space-y-4">
-      {blocks.map((b, i) =>
-        b.type === "text" ? (
-          <p
-            key={i}
-            className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line"
-          >
-            {b.content}
-          </p>
-        ) : (
+      {blocks.map((b, i) => {
+        if (b.type === "text") {
+          return (
+            <p
+              key={i}
+              className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line"
+            >
+              {b.content}
+            </p>
+          );
+        }
+
+        if (b.type === "video") {
+          return (
+            <figure key={i} className="space-y-1">
+              <video
+                src={b.src}
+                aria-label={b.alt}
+                poster={b.poster}
+                controls
+                preload="metadata"
+                playsInline
+                className="w-full rounded border border-border"
+              />
+              {b.caption && (
+                <figcaption className="text-center text-xs text-muted-foreground">
+                  {b.caption}
+                </figcaption>
+              )}
+            </figure>
+          );
+        }
+
+        return (
           <figure key={i} className="space-y-1">
             <img
               src={b.src}
@@ -37,8 +63,8 @@ function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
               </figcaption>
             )}
           </figure>
-        ),
-      )}
+        );
+      })}
     </div>
   );
 }

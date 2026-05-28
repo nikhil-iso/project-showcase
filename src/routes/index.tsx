@@ -27,6 +27,7 @@ const personalProjects: Project[] = [
         { type: "text", content: "The main part of ARTS is the MRFC, or model rocket flight computer. This is the board that flies inside the rocket and records what the vehicle is doing during flight. It uses sensors like a BMP280 (barometric pressure), KX134 accelerometer, GPS, and TMP102 temperature sensor. The barometer measures air pressure, which can be used to estimate altitude through some simple math. An accelerometer measures how the rocket is moving in three dimensional space and what loads it sees during boost, coast, deployment, and landing. It also provided orientation which will be usefull later with more advanced systems. GPS gives position data, which is useful for recovery and for comparing the actual flight to what was predicted before launch." },
         { type: "image", src: "public/ARTS_prototype.jpg", alt: "ARTS_prototype", caption: "Figure 2: ARTS flight computer MRFC Protoboard layout during testing and verification prior to permanant component placement." },
         { type: "text", content: "The ground station is the recieving side of the system. While the MRFC is in the rocket, the ground station stays on the ground and receives telemetry over radio. Telemetry is live data being sent back from the rocket, such as altitude, GPS position, battery state, and flight status. This makes the system more useful during testing, because I am not only waiting until after recovery to see what happened. It also gives me a base for future work in prediction, live plotting, and comparing flight data against a model." },
+        { type: "video", src: "public/PXL_20260528_100750046.mp4", alt: "ARTS_protoboard_vid", caption: "Figure 3: ARTS flight computer MRFC Protoboard layout post after GPS upgrade + Soldered." },
         { type: "text", content: "A longer-term part of ARTS is learning the pieces that support GNC systems. GNC stands for guidance, navigation, and control. Guidance is deciding where the vehicle should go, navigation is estimating where it is, and control is making changes so the vehicle follows the intended path. ARTS is not meant to start as a full active control system, but the basics are the same: reliable sensors, good data logging, telemetry, and some way of estimating the rocket’s state during flight." },
         { type: "text", content: "I am also interested in this because I hope to build USask’s first hybrid rocket engine for my final engineering capstone. A hybrid engine uses a solid fuel and a liquid or gaseous oxidizer, so the electrical side becomes more involved than on a simple solid motor flight. You need instrumentation, control of valves or ignition systems, data logging, and a good understanding of how the engine and vehicle behave together. ARTS gives me a way to build that background before taking on a larger propulsion system." },        
     ],
@@ -122,8 +123,9 @@ function Index() {
             Saskatoon, SK. I like working on problems that deal with a mix of hardware and software.
             Things like rocketry, space systems and structures, embedded systems, and robotics are where I see myself. <br /><br />
             
-            Currently open to internships, co-op positions, and collaborative projects in electrical 
-            engineering and mechatronics.
+            Currently focusing on academics and personal projects. Still open to opportunities and projects in electrical and mechatronics engineering.
+            { /* Currently open to internships, co-op positions, and collaborative projects in electrical engineering and mechatronics. */}
+
           </p>
         </section>
 
@@ -138,11 +140,30 @@ function Index() {
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Skills
           </h2>
-          <p className="text-sm leading-relaxed">
-            C/C++, Python, JavaScript, MATLAB, PlatformIO, Arduino, ESP32, Teensy, KiCad,
-            SolidWorks, Fusion 360, ANSYS FEA, OpenRocket, 3D Printing, CNC Machining,
-            Composite Manufacturing, Git, Linux
-          </p>
+          <div className="grid gap-6 text-sm leading-relaxed md:grid-cols-3">
+            <div>
+              <h3 className="mb-2 font-medium text-foreground">Engineering Tools</h3>
+              <p className="text-muted-foreground">
+                Fusion 360, KiCAD, Inventor, ANSYS FEA, OpenRocket, 
+                Sketchup, Reviet, Civil 3D, Solidworks, OnShape, AutoCAD
+                Solidworks, 3D Printing, CNC Machining, Composite Manufacturing
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 font-medium text-foreground">Programming Languages</h3>
+              <p className="text-muted-foreground">
+                C/C++, Excel, MATLAB, Python, HTML, CSS, JavaScript,
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 font-medium text-foreground">Platforms</h3>
+              <p className="text-muted-foreground">
+                Vercel, GitHub, MC Projects, Autodesk,
+                PlatformIO, Arduino, ESP32, Teensy, Git, Linux,
+                Google Suite, MS Office,
+              </p>
+            </div>
+          </div>
         </section>
 
         <footer className="border-t border-border pt-6 text-sm text-muted-foreground">
