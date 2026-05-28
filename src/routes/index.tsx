@@ -5,9 +5,9 @@ import { ProjectList, type Project } from "../components/ProjectList";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nikhil Patel — Electrical Engineering Portfolio" },
+      { title: "Nikhil Patel - Electrical Engineering Portfolio" },
       { name: "description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
-      { property: "og:title", content: "Nikhil Patel — Electrical Engineering Portfolio" },
+      { property: "og:title", content: "Nikhil Patel - Electrical Engineering Portfolio" },
       { property: "og:description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
     ],
   }),
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
 
 const personalProjects: Project[] = [
   {
-    title: "MRFC — Modular Rocket Flight Computer",
+    title: "MRFC - Modular Rocket Flight Computer",
     description:
       "PlatformIO firmware prototype for Teensy 4.1 that validates IMU and barometric sensor performance, streams filtered CSV telemetry over USB serial, and logs boot sessions to onboard SD. Calibrates a ground-pressure baseline at startup and signals init via buzzer.",
     tech: ["Teensy 4.1", "PlatformIO", "C++", "MPU6050", "BME280", "I2C", "SD Logging"],
@@ -44,7 +44,7 @@ const personalProjects: Project[] = [
     tech: ["Arduino Micro", "C++", "USB HID", "Cherry MX", "Fusion 360", "3D Printing"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/Arduino-Macropad" }],
     details: [
-        { type: "text", content: "Uses the Arduino Micro's native USB HID stack so the device enumerates as a standard keyboard — no drivers required on any major OS. The 4×2 matrix is scanned with debounce in firmware, and macros are stored in EEPROM so profiles survive power cycles." },
+        { type: "text", content: "Uses the Arduino Micro's native USB HID stack so the device enumerates as a standard keyboard - no drivers required on any major OS. The 4×2 matrix is scanned with debounce in firmware, and macros are stored in EEPROM so profiles survive power cycles." },
         { type: "text", content: "The enclosure was modeled in Fusion 360 with hot-swap sockets in mind, so switches can be changed without soldering. Total BOM was under $40." },
     ],
   },
@@ -55,7 +55,7 @@ const personalProjects: Project[] = [
     tech: ["Python", "OpenCV", "Motor Control", "Embedded Systems"],
     details: [
         { type: "text", content: "Pipeline is split into independent detection, tracking, and actuation stages so each can be swapped or tuned in isolation. Currently focused on getting reliable tracking of moving targets under varying lighting before integrating the motor control stage." },
-        { type: "text", content: "Long-term goal is a small-scale demonstrator inspired by Carbon Robotics' laser weeder — pattern recognition driving a 2-axis aiming mechanism." },
+        { type: "text", content: "Long-term goal is a small-scale demonstrator inspired by Carbon Robotics' laser weeder - pattern recognition driving a 2-axis aiming mechanism." },
     ],
   },
 ];
