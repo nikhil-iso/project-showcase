@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { ProjectList, type Project } from "../components/ProjectList";
 
 export const Route = createFileRoute("/")({
@@ -63,22 +64,34 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-2xl px-6 py-16">
-        <header className="mb-16">
-          <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
-          <p className="mt-2 text-muted-foreground">
-            Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design.
-          </p>
-          <nav className="mt-4 flex gap-4 text-sm">
-            <a href="mailto:nikhil.patel@usask.ca" className="text-primary hover:underline">
-              Email
-            </a>
-            <a href="https://github.com/nikhil-iso" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/nikhil-patel-ba1581281/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              LinkedIn
-            </a>
-          </nav>
+        <header className="mb-16 flex items-start justify-between gap-6">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
+            <p className="mt-2 text-muted-foreground">
+              Electrical Engineering student at the University of Saskatchewan. <br />
+               <br />
+              Rocketry, embedded systems, robotics, prosthesis and hardware design.
+            </p>
+            <nav className="mt-4 flex gap-4 text-sm">
+              <a href="mailto:nikhil.patel@usask.ca" className="text-primary hover:underline">
+                Email
+              </a>
+              <a href="https://github.com/nikhil-iso" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/nikhil-patel-ba1581281/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                LinkedIn
+              </a>
+            </nav>
+          </div>
+          <Avatar className="h-48 w-48 border border-border bg-muted">
+            <AvatarImage
+              src="/profile-picture.JPG"
+              alt="Nikhil Patel profile picture"
+              className="object-cover"
+            />
+            <AvatarFallback className="text-lg font-medium">NP</AvatarFallback>
+          </Avatar>
         </header>
 
         <section className="mb-16">
@@ -87,10 +100,11 @@ function Index() {
           </h2>
           <p className="leading-relaxed">
             I&apos;m an Electrical Engineering student at the University of Saskatchewan based in
-            Saskatoon, SK. I like working on problems that span hardware and firmware — rocketry
-            propulsion and structures, embedded sensor systems, and robotics. Currently open to
-            internships, co-op positions, and collaborative projects in electrical engineering and
-            mechatronics.
+            Saskatoon, SK. I like working on problems that deal with hardware and software. \
+            Things like rocketry propulsion and structures, embedded systems, and robotics. <br /><br />
+            
+            Currently open to internships, co-op positions, and collaborative projects in electrical 
+            engineering and mechatronics.
           </p>
         </section>
 
@@ -113,7 +127,7 @@ function Index() {
         </section>
 
         <footer className="border-t border-border pt-6 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Nikhil Patel
+          © {new Date().getFullYear()} Nikhil Patel. All Rights Reserved.
         </footer>
       </div>
     </div>
