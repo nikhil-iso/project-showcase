@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 const pdfs = [
-  { label: "CV", href: "public/Nikhil_Patel_cv.pdf" },
-  { label: "Resume", href: "public/Nikhil_Patel_Resume.pdf" },
-  { label: "Portfolio", href: "public/Nikhil_Patel_Projects.pdf" },
+  { label: "CV", href: "/Nikhil_Patel_cv.pdf" },
+  { label: "Resume", href: "/Nikhil_Patel_Resume.pdf" },
+  { label: "Portfolio", href: "/Nikhil_Patel_Projects.pdf" },
 ];
 
 const navLinks = [
