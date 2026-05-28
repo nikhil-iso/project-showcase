@@ -16,14 +16,19 @@ export const Route = createFileRoute("/")({
 
 const personalProjects: Project[] = [
   {
-    title: "MRFC - Modular Rocket Flight Computer",
+    title: "ARTS - Amateur Rocketry Telemetry System",
     description:
-      "PlatformIO firmware prototype for Teensy 4.1 that validates IMU and barometric sensor performance, streams filtered CSV telemetry over USB serial, and logs boot sessions to onboard SD. Calibrates a ground-pressure baseline at startup and signals init via buzzer.",
+      "ARTS stands for Amateur Rocketry Telemetry System. It is a data collection system designed for Model and High power rocketry. It utilizes an array of sensors and modules onboard a high power rocket to collect and transmit data to a ground station for interpretation and recovery.",
     tech: ["Teensy 4.1", "PlatformIO", "C++", "MPU6050", "BME280", "I2C", "SD Logging"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/MRFC" }],
     details: [
-        { type: "text", content: "Designed as a modular base for future rocket avionics: separate driver modules for the IMU, barometer, and storage so new sensors can be added without touching the main loop." },
-        { type: "text", content: "Ground pressure is sampled and averaged at boot to set a baseline for altitude calculations. Telemetry is streamed as CSV over USB serial for live debugging and mirrored to SD for post-flight review. A piezo buzzer reports init status and sensor errors so failures are caught before launch." },
+        { type: "text", content: "I started ARTS as a stepping stone into the avionics side of high and mid power rocketry. Most of my work on the USST has been in rocketry propulsion, and as propulsion lead I do not usually get to spend much time working directly with electrical engineering fields even though that is what I am studying. ARTS is a way for me to bring that side of rocketry closer to my own studies and knowledge." },
+        { type: "image", src: "/usst_welcome_week_booth.jpg", alt: "USST Welcome Week booth", caption: "Figure 1: USST Welcome Week booth (Thats me on the far right!)" },
+        { type: "text", content: "The main part of ARTS is the MRFC, or model rocket flight computer. This is the board that flies inside the rocket and records what the vehicle is doing during flight. It uses sensors like a BMP280 (barometric pressure), KX134 accelerometer, GPS, and TMP102 temperature sensor. The barometer measures air pressure, which can be used to estimate altitude through some simple math. An accelerometer measures how the rocket is moving in three dimensional space and what loads it sees during boost, coast, deployment, and landing. It also provided orientation which will be usefull later with more advanced systems. GPS gives position data, which is useful for recovery and for comparing the actual flight to what was predicted before launch." },
+        { type: "image", src: "public/ARTS_prototype.jpg", alt: "ARTS_prototype", caption: "Figure 2: ARTS flight computer MRFC Protoboard layout during testing and verification prior to permanant component placement." },
+        { type: "text", content: "The ground station is the recieving side of the system. While the MRFC is in the rocket, the ground station stays on the ground and receives telemetry over radio. Telemetry is live data being sent back from the rocket, such as altitude, GPS position, battery state, and flight status. This makes the system more useful during testing, because I am not only waiting until after recovery to see what happened. It also gives me a base for future work in prediction, live plotting, and comparing flight data against a model." },
+        { type: "text", content: "A longer-term part of ARTS is learning the pieces that support GNC systems. GNC stands for guidance, navigation, and control. Guidance is deciding where the vehicle should go, navigation is estimating where it is, and control is making changes so the vehicle follows the intended path. ARTS is not meant to start as a full active control system, but the basics are the same: reliable sensors, good data logging, telemetry, and some way of estimating the rocket’s state during flight." },
+        { type: "text", content: "I am also interested in this because I hope to build USask’s first hybrid rocket engine for my final engineering capstone. A hybrid engine uses a solid fuel and a liquid or gaseous oxidizer, so the electrical side becomes more involved than on a simple solid motor flight. You need instrumentation, control of valves or ignition systems, data logging, and a good understanding of how the engine and vehicle behave together. ARTS gives me a way to build that background before taking on a larger propulsion system." },        
     ],
   },
   {
@@ -63,7 +68,7 @@ const personalProjects: Project[] = [
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8">
         <header className="mb-16 flex items-start justify-between gap-6">
           <div className="min-w-0">
             <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
@@ -72,14 +77,27 @@ function Index() {
                <br />
               Rocketry, embedded systems, robotics, prosthesis and hardware design.
             </p>
-            <nav className="mt-4 flex gap-4 text-sm">
-              <a href="mailto:nikhil.patel@usask.ca" className="text-primary hover:underline">
+            <nav className="mt-5 flex flex-wrap gap-3 text-base">
+              <a
+                href="mailto:nikhil.patel@usask.ca"
+                className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline"
+              >
                 Email
               </a>
-              <a href="https://github.com/nikhil-iso" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a
+                href="https://github.com/nikhil-iso"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline"
+              >
                 GitHub
               </a>
-              <a href="https://www.linkedin.com/in/nikhil-patel-ba1581281/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a
+                href="https://www.linkedin.com/in/nikhil-patel-ba1581281/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline"
+              >
                 LinkedIn
               </a>
             </nav>
@@ -99,9 +117,10 @@ function Index() {
             About
           </h2>
           <p className="leading-relaxed">
-            I&apos;m an Electrical Engineering student at the University of Saskatchewan based in
-            Saskatoon, SK. I like working on problems that deal with hardware and software. \
-            Things like rocketry propulsion and structures, embedded systems, and robotics. <br /><br />
+            I&apos;m an Electrical Engineering student at the{" "}
+            <span className="text-[#0b6a41]">University of Saskatchewan</span> based in
+            Saskatoon, SK. I like working on problems that deal with a mix of hardware and software.
+            Things like rocketry, space systems and structures, embedded systems, and robotics are where I see myself. <br /><br />
             
             Currently open to internships, co-op positions, and collaborative projects in electrical 
             engineering and mechatronics.

@@ -32,7 +32,7 @@ function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
               className="w-full rounded border border-border"
             />
             {b.caption && (
-              <figcaption className="text-xs text-muted-foreground">
+              <figcaption className="text-center text-xs text-muted-foreground">
                 {b.caption}
               </figcaption>
             )}

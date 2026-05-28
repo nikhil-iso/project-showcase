@@ -69,7 +69,7 @@ const teamProjects: Project[] = [
 function TeamPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8">
         <h1 className="mb-8 text-2xl font-semibold tracking-tight">Team Projects</h1>
         <ProjectList projects={teamProjects} />
       </div>
