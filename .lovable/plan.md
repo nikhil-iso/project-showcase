@@ -1,29 +1,37 @@
-## Plan
+## Theme update (`src/styles.css`)
 
-### 1. Header component (`src/components/SiteHeader.tsx`)
-- Fixed header across the top, full width, black background, thin bottom border.
-- Left: name "Nikhil Patel" linking to `/`.
-- Middle: nav `Link`s — Home, Personal Projects, Team Projects.
-- Right: three buttons that open the PDFs in a new tab (`target="_blank"`):
-  - CV → `/cv.pdf`
-  - Resume → `/resume.pdf`
-  - Portfolio → `/portfolio.pdf`
-- Auto-hide behavior: a small `useEffect` tracks `window.scrollY`; when scrolling down past ~80px the header translates off-screen (`-translate-y-full`), when scrolling up it returns. Plain CSS `transition-transform`, no animation library.
-- Mounted in `src/routes/__root.tsx` so it appears on every page. Add top padding to page content to avoid being covered.
+Replace the pure-black palette with dark grey + blue/purple accents (oklch):
+- `--background`: dark grey ~`oklch(0.22 0 0)`
+- `--card` / `--popover`: slightly lighter grey ~`oklch(0.26 0 0)`
+- `--secondary` / `--muted`: ~`oklch(0.30 0 0)`
+- `--border` / `--input`: ~`oklch(0.36 0 0)`
+- `--primary` / `--ring`: blue `oklch(0.62 0.18 250)` (kept)
+- `--accent`: purple `oklch(0.62 0.20 295)`
+- Foreground stays near-white
 
-### 2. PDF files
-- You'll upload `cv.pdf`, `resume.pdf`, `portfolio.pdf`. I'll drop them in `public/` so they're served at `/cv.pdf` etc.
+Header (`SiteHeader.tsx`) currently uses `bg-black`; switch to `bg-background` (or `bg-card`) so it matches the new grey.
 
-### 3. Split projects into two routes
-- Keep **Personal Projects** on the home page (`src/routes/index.tsx`) along with About and Skills. Remove the Team Projects section from index.
-- New route `src/routes/team.tsx` → `/team` containing only the Team Projects list, with its own `head()` meta (title "Team Projects — Nikhil Patel", matching description).
-- Move the `teamProjects` array and project list markup into the new file. Extract the repeated project list rendering into a small `ProjectList` component in `src/components/ProjectList.tsx` to avoid duplication.
+## Project details: panel on desktop, dropdown on mobile
 
-### 4. Styling
-- Reuse existing semantic tokens (`bg-background`, `text-foreground`, `border-border`, `text-primary`). No new colors, no gradients.
-- Buttons in the header use the existing shadcn `Button` with `variant="outline"` and `size="sm"` to stay minimal.
+Add an optional `details` field to the `Project` type (long-form text/JSX — extra context beyond the short description). Populate for the existing projects in `index.tsx` and `team.tsx`.
 
-### Files touched
-- new: `src/components/SiteHeader.tsx`, `src/components/ProjectList.tsx`, `src/routes/team.tsx`
-- edit: `src/routes/__root.tsx` (mount header), `src/routes/index.tsx` (remove team section, use ProjectList)
-- add: `public/cv.pdf`, `public/resume.pdf`, `public/portfolio.pdf` (your uploads)
+Rework `ProjectList.tsx`:
+- Each project row gets a "Details" button.
+- Track a single selected project in local state.
+- Desktop (`md:` and up): clicking "Details" opens a slide-in panel docked to the right side of the viewport (fixed position, ~`max-w-md`, slides in via a CSS `transform` + `transition-transform` — no animation library). Backdrop click and a close button dismiss it. Uses `bg-card`, `border-l border-border`.
+- Mobile (`< md`): the same button toggles an inline dropdown that expands directly under the project (simple `max-height`/conditional render). No slide-over on mobile.
+- Implementation: render both, hide the desktop panel with `hidden md:block` and the mobile dropdown with `md:hidden`. Keep one piece of state per list.
+
+Used on both `/` (Personal Projects) and `/team` (Team Projects) via the shared `ProjectList`.
+
+## Files touched
+- `src/styles.css` — recolor tokens
+- `src/components/SiteHeader.tsx` — swap `bg-black` → `bg-background`
+- `src/components/ProjectList.tsx` — add details button + desktop slide panel + mobile dropdown
+- `src/routes/index.tsx` — add `details` content for personal projects
+- `src/routes/team.tsx` — add `details` content for team projects
+
+## Notes
+- No new dependencies; transitions are plain Tailwind CSS classes (`transition-transform`, `translate-x-full` ↔ `translate-x-0`).
+- Accent purple is available as `bg-accent` / `text-accent` for selective highlights (e.g. selected project, detail panel heading underline).
+- Per your "keep it simple" rule, animations are limited to a single transform transition on the desktop panel; mobile dropdown just shows/hides.
