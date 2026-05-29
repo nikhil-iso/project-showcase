@@ -38,23 +38,30 @@ const personalProjects: Project[] = [
   {
     title: "SimuLight Sunrise",
     description:
-      "Open-source sunrise alarm clock that gradually ramps room brightness using Bezier-style easing over 30–90 minute windows. ESP32 + DS3231 RTC fallback, MOSFET-driven 12V load, JSON scheduling, and a Python desktop utility for ramp profile tuning.",
+      "First-year engineering project that uses an ESP32, DS3231 RTC, and 12V light bar to make dark Saskatoon mornings a little easier.",
     tech: ["ESP32", "C++", "Python", "KiCad", "Fusion 360", "DS3231", "MOSFET"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/SimulightSunrise" }],
     details: [
-        { type: "text", content: "ESP32 firmware drives a high-side MOSFET via PWM to dim a 12V LED panel, with a DS3231 RTC as a fallback when Wi-Fi time sync is unavailable. Schedules are stored as JSON so multiple alarm profiles can coexist." },
-        { type: "text", content: "A Python desktop utility lets you tune ramp profiles visually and push them to the device. KiCad schematic and a Fusion 360 enclosure round out the build into something repeatable." },
+        { type: "text", content: "SimuLight Sunrise started in my first year of engineering because my dorm room window faced a wall. Even during the day, I did not get much direct sunlight. In the middle of a Saskatoon winter, that meant I was usually waking up before there was any real sunrise at all." },
+        { type: "text", content: "The idea was to build something better than a loud alarm. I wanted the room to slowly get brighter before I had to wake up, closer to how a normal sunrise feels. It was partly a comfort project, but also a good excuse to build something practical with embedded hardware." },
+        { type: "text", content: "The device is built around an ESP32, a DS3231 real-time clock module, and a 12V LED light bar. The ESP32 handles the control logic, Wi-Fi, web interface, and smart home connection. The RTC keeps time even if the device loses internet, which matters when the whole point is making sure the alarm still works." },
+        { type: "text", content: "The user sets a wake time and a ramp length. When the alarm starts, the LED array slowly increases brightness over that period instead of turning on all at once. I also added a web interface so I could adjust schedules, brightness behavior, and profiles without plugging the device into a computer every time." },
+        { type: "text", content: "I built it with smart home use in mind, so different routines can trigger different profiles. A weekday wake-up could use a long slow ramp, while a weekend profile could be shorter or dimmer. I also started adding weather-aware behavior so the light timing can eventually respond to conditions from a connected weather app." },
+        { type: "text", content: "The physical device includes a 4-digit 7-segment display so it can still work as a normal desk clock. The electronics and firmware are close to done, and the last major step is putting everything into a proper enclosure so it feels like a finished device instead of a bench prototype." },
     ],
   },
   {
     title: "Arduino-Based Macropad",
     description:
-      "Low-cost, customizable macro keypad on an Arduino Micro with native USB HID. 4×2 hot-swap Cherry MX matrix, multi-profile macro storage, per-key remapping, and an ergonomic 3D-printed enclosure. Driverless on Windows, macOS, and Linux.",
+      "8-key Arduino Pro Micro macropad in a 3D printed enclosure, built as an early proof of concept for open, customizable accessibility-focused controllers.",
     tech: ["Arduino Micro", "C++", "USB HID", "Cherry MX", "Fusion 360", "3D Printing"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/Arduino-Macropad" }],
     details: [
-        { type: "text", content: "Uses the Arduino Micro's native USB HID stack so the device enumerates as a standard keyboard - no drivers required on any major OS. The 4×2 matrix is scanned with debounce in firmware, and macros are stored in EEPROM so profiles survive power cycles." },
-        { type: "text", content: "The enclosure was modeled in Fusion 360 with hot-swap sockets in mind, so switches can be changed without soldering. Total BOM was under $40." },
+        { type: "text", content: "I started this project in Grade 11 during COVID. At the time I wanted to get my foot in the door with accessible engineering projects, and I remember seeing a video of someone helping people with disabilities enjoy gaming by building custom input devices. That stuck with me, and this macropad became my first proof of concept." },
+        { type: "text", content: "The hardware is simple on purpose: 8 keyboard switches wired to an Arduino Pro Micro inside a 3D printed enclosure. It was also my first real experience with soldering, 3D printing, and writing Arduino code, so a lot of the project was me learning the basics by building something I could actually use." },
+        { type: "text", content: "The larger idea was to make a baseline design that could be opened up and modified. Different people have different accessibility needs, especially for gaming controllers, and I wanted the controller to be something someone could change for their own hand position, reach, strength, or preferred layout without needing a closed-source product." },
+        { type: "text", content: "The code treats the board like a standard USB keyboard. Each of the 8 switches is assigned to a function key from F13 to F20 by default, which keeps the keys out of the way of normal keyboard shortcuts. Those assignments can be changed directly in the code depending on what the user needs." },
+        { type: "text", content: "It is still one of the projects I use almost every day. It started as a small accessibility-focused experiment, but it ended up being the project that introduced me to a lot of the hands-on skills I now use regularly: soldering, enclosure design, embedded programming, and building around a real user need." },
     ],
   },
   {
@@ -97,7 +104,7 @@ function Index() {
                 GitHub
               </a>
               <a
-                href="https://www.linkedin.com/in/nikhil-patel-ba1581281/"
+                href="https://www.linkedin.com/in/nikhil-patel-uofs/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline"
@@ -124,7 +131,7 @@ function Index() {
             I&apos;m an Electrical Engineering student at the{" "}
             <span className="text-[#0b6a41]">University of Saskatchewan</span> based in
             Saskatoon, SK. I like working on problems that deal with a mix of hardware and software.
-            Things like rocketry, space systems and structures, embedded systems, and robotics are where I see myself. <br /><br />
+            Things like rocketry, space systems and structures, embedded systems, and robotics particularly interest me. <br /><br />
             
             Currently focusing on academics and personal projects. Still open to opportunities and projects in electrical and mechatronics engineering.
             { /* Currently open to internships, co-op positions, and collaborative projects in electrical engineering and mechatronics. */}
