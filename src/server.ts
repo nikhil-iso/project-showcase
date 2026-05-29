@@ -11,6 +11,7 @@ type ServerEntry = {
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 const CANONICAL_HOST = new URL(CANONICAL_ORIGIN).host;
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
+const CUSTOM_HOSTS = new Set([CANONICAL_HOST, `www.${CANONICAL_HOST}`]);
 
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
@@ -42,7 +43,13 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 
 function redirectToCanonicalHost(request: Request) {
   const url = new URL(request.url);
-  if (LOCAL_HOSTS.has(url.hostname) || url.host.toLowerCase() === CANONICAL_HOST) {
+  const hostname = url.hostname.toLowerCase();
+
+  if (LOCAL_HOSTS.has(hostname) || CUSTOM_HOSTS.has(hostname)) {
+    return undefined;
+  }
+
+  if (!hostname.endsWith(".vercel.app")) {
     return undefined;
   }
 
