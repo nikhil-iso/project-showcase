@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { ProjectList, type Project } from "../components/ProjectList";
+import { canonicalUrl } from "../lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -9,7 +10,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
       { property: "og:title", content: "Nikhil Patel - Electrical Engineering Portfolio" },
       { property: "og:description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
+      { property: "og:url", content: canonicalUrl("/") },
     ],
+    links: [{ rel: "canonical", href: canonicalUrl("/") }],
   }),
   component: Index,
 });

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProjectList, type Project } from "../components/ProjectList";
+import { canonicalUrl } from "../lib/site";
 
 export const Route = createFileRoute("/team")({
   head: () => ({
@@ -8,7 +9,9 @@ export const Route = createFileRoute("/team")({
       { name: "description", content: "Team and competition projects: rocketry, FRC robotics, and hackathons." },
       { property: "og:title", content: "Team Projects - Nikhil Patel" },
       { property: "og:description", content: "Team and competition projects: rocketry, FRC robotics, and hackathons." },
+      { property: "og:url", content: canonicalUrl("/team") },
     ],
+    links: [{ rel: "canonical", href: canonicalUrl("/team") }],
   }),
   component: TeamPage,
 });

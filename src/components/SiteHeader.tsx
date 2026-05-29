@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
+import { canonicalUrl } from "../lib/site";
 
 const pdfs = [
-  { label: "CV", href: "/Nikhil_Patel_cv.pdf" },
-  { label: "Resume", href: "/Nikhil_Patel_Resume.pdf" },
-  { label: "Portfolio", href: "/Nikhil_Patel_Projects.pdf" },
+  { label: "CV", href: canonicalUrl("/Nikhil_Patel_cv.pdf") },
+  { label: "Resume", href: canonicalUrl("/Nikhil_Patel_Resume.pdf") },
+  { label: "Portfolio", href: canonicalUrl("/Nikhil_Patel_Projects.pdf") },
 ];
 
 const navLinks = [
-  { to: "/" as const, label: "Home" },
-  { to: "/team" as const, label: "Team Projects" },
+  { path: "/", href: canonicalUrl("/"), label: "Home" },
+  { path: "/team", href: canonicalUrl("/team"), label: "Team Projects" },
 ];
 
 export function SiteHeader() {
   const [hidden, setHidden] = useState(false);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -34,21 +36,22 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-        <Link to="/" className="text-sm font-semibold tracking-tight">
+        <a href={canonicalUrl("/")} className="text-sm font-semibold tracking-tight">
           Nikhil - Eng
-        </Link>
+        </a>
         <nav className="hidden gap-5 text-sm sm:flex">
-          {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: true }}
-              activeProps={{ className: "text-foreground" }}
-              inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {navLinks.map((l) => {
+            const isActive = pathname === l.path;
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className={isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="flex gap-2">
           {pdfs.map((p) => (

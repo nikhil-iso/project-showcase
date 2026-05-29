@@ -2,12 +2,15 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { CANONICAL_ORIGIN } from "./lib/site";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
+const CANONICAL_HOST = new URL(CANONICAL_ORIGIN).host;
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
 
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
@@ -37,9 +40,23 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   });
 }
 
+function redirectToCanonicalHost(request: Request) {
+  const url = new URL(request.url);
+  if (LOCAL_HOSTS.has(url.hostname) || url.host.toLowerCase() === CANONICAL_HOST) {
+    return undefined;
+  }
+
+  url.protocol = "https:";
+  url.host = CANONICAL_HOST;
+  return Response.redirect(url, 308);
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const canonicalRedirect = redirectToCanonicalHost(request);
+      if (canonicalRedirect) return canonicalRedirect;
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
