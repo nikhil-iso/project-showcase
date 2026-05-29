@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nikhil-eng.com/sitemap.xml
+Sitemap: https://www.nikhil-eng.com/sitemap.xml

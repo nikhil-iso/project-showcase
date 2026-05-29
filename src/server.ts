@@ -9,9 +9,9 @@ type ServerEntry = {
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
-const CANONICAL_HOST = new URL(CANONICAL_ORIGIN).host;
+const CANONICAL_HOST = new URL(CANONICAL_ORIGIN).hostname;
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
-const CUSTOM_HOSTS = new Set([CANONICAL_HOST, `www.${CANONICAL_HOST}`]);
+const REDIRECTABLE_HOSTS = new Set(["nikhil-eng.com"]);
 
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
@@ -45,11 +45,11 @@ function redirectToCanonicalHost(request: Request) {
   const url = new URL(request.url);
   const hostname = url.hostname.toLowerCase();
 
-  if (LOCAL_HOSTS.has(hostname) || CUSTOM_HOSTS.has(hostname)) {
+  if (LOCAL_HOSTS.has(hostname) || hostname === CANONICAL_HOST) {
     return undefined;
   }
 
-  if (!hostname.endsWith(".vercel.app")) {
+  if (!REDIRECTABLE_HOSTS.has(hostname) && !hostname.endsWith(".vercel.app")) {
     return undefined;
   }
 
