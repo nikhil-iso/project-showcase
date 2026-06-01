@@ -90,7 +90,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/public/skillsbot.JPG",
+        src: "public/skillsbot.JPG",
         alt: "Skills Alberta Shooter robot CAD render",
         caption: "Figure 1: Skills Alberta Shooter bot CAD render.",
       },
