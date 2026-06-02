@@ -103,7 +103,7 @@ const teamProjects: Project[] = [
         type: "image",
         src: "/Project Up Lower Section.png",
         alt: "Project UP lower propulsion section CAD",
-        caption: "Figure 3: Lower propulsion section CAD showing the aft-end interface.",
+        caption: "Figure 3: The first iteration of the lower propulsion section CAD showing the aft-end interface with noticible tradeoffs with weight vs preformance.",
       },
       {
         type: "text",
