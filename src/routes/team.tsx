@@ -28,6 +28,7 @@ const teamProjects: Project[] = [
     description:
       "Redesign of the team's M-class rocket for Launch Canada 2026. Composite boat tail, threaded external motor retention, thrust plate with clean load path into fuselage, structural FEA at 8 kN thrust loads. 26-person team.",
     tech: ["SolidWorks", "Fusion 360", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
+    links: [{ label: "USST Website", href: "https://www.usst.ca" }],
     details: [
       {
         type: "text",
@@ -69,6 +70,7 @@ const teamProjects: Project[] = [
       "6061 Aluminum",
       "CNC",
     ],
+    links: [{ label: "USST Website", href: "https://www.usst.ca" }],
     details: [
       {
         type: "text",
@@ -142,6 +144,7 @@ const teamProjects: Project[] = [
     description:
       "Led drivetrain architecture for the 2023 FRC season. Developed the team's first swerve drive prototype alongside an 8:1 dual tank drive. Torque-speed and gear ratio analysis using motor data sheets and Excel-based modeling. 40-person team.",
     tech: ["SolidWorks", "Excel", "Swerve Drive", "Gear Ratio Optimization"],
+    links: [{ label: "Team 4627", href: "https://4627.ca/" }],
     details: [
       {
         type: "text",
@@ -196,6 +199,7 @@ const teamProjects: Project[] = [
     description:
       "48-hour hackathon build. We developed a web platform for exploring NASA's open data with map-first navigation, filterable exoplanet attributes, and accessibility-first explanations. Led product framing and dataset curation.",
     tech: ["JavaScript", "HTML/CSS", "NASA Exoplanet Archive", "Data Visualization"],
+    links: [{ label: "Space Apps Challenge", href: "https://www.asc-csa.gc.ca/eng/events/2024/2024-10-05-space-apps-challenge.asp" }],
     details: [
       {
         type: "text",

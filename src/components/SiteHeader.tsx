@@ -35,7 +35,7 @@ export function SiteHeader() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
         <a href={canonicalUrl("/")} className="text-sm font-semibold tracking-tight">
           Nikhil - Eng
         </a>
