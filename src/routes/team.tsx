@@ -28,6 +28,7 @@ const teamProjects: Project[] = [
     description:
       "Redesign of the team's M-class rocket for Launch Canada 2026. Composite boat tail, threaded external motor retention, thrust plate with clean load path into fuselage, structural FEA at 8 kN thrust loads. 26-person team.",
     tech: ["SolidWorks", "Fusion 360", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
+    links: [{ label: "USST Website", href: "https://www.usst.ca" }],
     details: [
       {
         type: "text",
