@@ -62,6 +62,7 @@ const teamProjects: Project[] = [
     description:
       "M-class high power rocket at Launch Canada 2025. Led propulsion integration and aft-end subsystem: composite boat tail, aluminum thrust plate, threaded crown motor retention. 8th nationally, 16,500 ft apogee, Spirit Bear Award.",
     tech: ["SolidWorks", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
+    links: [{ label: "USST Website", href: "https://www.usst.ca" }],
     details: [
       {
         type: "text",
@@ -80,6 +81,7 @@ const teamProjects: Project[] = [
     description:
       "Led drivetrain architecture for the 2023 FRC season. Developed the team's first swerve drive prototype alongside an 8:1 dual tank drive. Torque-speed and gear ratio analysis using motor data sheets and Excel-based modeling. 40-person team.",
     tech: ["SolidWorks", "Excel", "Swerve Drive", "Gear Ratio Optimization"],
+    links: [{ label: "Team 4627", href: "https://4627.ca/" }],
     details: [
       {
         type: "text",
@@ -122,6 +124,7 @@ const teamProjects: Project[] = [
     description:
       "48-hour hackathon build. We developed a web platform for exploring NASA's open data with map-first navigation, filterable exoplanet attributes, and accessibility-first explanations. Led product framing and dataset curation.",
     tech: ["JavaScript", "HTML/CSS", "NASA Exoplanet Archive", "Data Visualization"],
+    links: [{ label: "Space Apps Challenge", href: "https://www.asc-csa.gc.ca/eng/events/2024/2024-10-05-space-apps-challenge.asp" }],
     details: [
       {
         type: "text",
