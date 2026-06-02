@@ -35,7 +35,7 @@ const teamProjects: Project[] = [
           "As President I run a 50+ person team across two projects, a University Rocketry team and CUBICS Cube Satelite program.",
       },
       { type: "image", 
-        src: "/public/USST_AGM_Picture.JPG", 
+        src: "USST_AGM_Picture.JPG", 
         alt: "USST Team Picture", 
         caption: "Figure 1: USST Team Picture at our Annual General Meeting." 
       },
@@ -45,7 +45,7 @@ const teamProjects: Project[] = [
           "As Propulsion Lead on the rocketry project I primarily focus in on the aft-end design, which includes a carbon fiber composite boat tail, custom CNC'd Aluminum motor retention, and a custom aluminum thrust plate that transfers ~8 kN cleanly into the fuselage.",
       },
       { type: "image", 
-        src: "/public/USST_Rocketry_Logo.jpg", 
+        src: "USST_Rocketry_Logo.jpg", 
         alt: "USST Rocketry", 
         caption: "Figure 1: USST Rocketry." 
       },
