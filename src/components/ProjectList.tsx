@@ -172,7 +172,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
           className={`absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-border bg-card p-6 shadow-xl transition-transform duration-200 ${active ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="mb-4 flex items-start justify-between gap-4">
-            <h3 className="text-lg font-medium">{active?.title}</h3>
+            <h3 className="min-w-0 flex-1 break-words text-lg font-medium">{active?.title}</h3>
             <button
               type="button"
               onClick={() => setPanelIdx(null)}
