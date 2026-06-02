@@ -113,7 +113,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
           return (
             <li key={p.title} className="border-l-2 border-border pl-4">
               <div className="flex items-start justify-between gap-4">
-                <h3 className="font-medium">{p.title}</h3>
+                <h3 className="min-w-0 flex-1 break-words font-medium">{p.title}</h3>
                 <>
                   <button
                     type="button"
@@ -161,7 +161,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
 
       {/* Desktop slide-over panel */}
       <div
-        className={`fixed inset-0 z-40 hidden md:block ${active ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`fixed inset-x-0 bottom-0 top-14 z-40 hidden md:block ${active ? "pointer-events-auto" : "pointer-events-none"}`}
         aria-hidden={!active}
       >
         <div
