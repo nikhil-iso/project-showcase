@@ -32,12 +32,27 @@ const teamProjects: Project[] = [
       {
         type: "text",
         content:
-          "As President I run the 26-person team across propulsion, structures, recovery, avionics, and operations. As Propulsion Lead I own the aft-end design: composite boat tail layup, threaded external motor retention, and a machined aluminum thrust plate that transfers ~8 kN cleanly into the fuselage.",
+          "As President I run a 50+ person team across two projects, a University Rocketry team and CUBICS Cube Satelite program.",
+      },
+      { type: "image", 
+        src: "/public/USST_AGM_Picture.JPG", 
+        alt: "USST Team Picture", 
+        caption: "Figure 1: USST Team Picture at our Annual General Meeting." 
       },
       {
         type: "text",
         content:
-          "Structural validation is done in ANSYS at peak thrust loads, with hand calcs for bolted joints and bonded interfaces. Targeting Launch Canada 2026.",
+          "As Propulsion Lead on the rocketry project I primarily focus in on the aft-end design, which includes a carbon fiber composite boat tail, custom CNC'd Aluminum motor retention, and a custom aluminum thrust plate that transfers ~8 kN cleanly into the fuselage.",
+      },
+      { type: "image", 
+        src: "/public/USST_Rocketry_Logo.jpg", 
+        alt: "USST Rocketry", 
+        caption: "Figure 1: USST Rocketry." 
+      },
+      {
+        type: "text",
+        content:
+          "Structural validation is done through ANSYS at peak thrust loads, with hand calculations for bolted joints and bonded interfaces. Targeting Launch Canada 2026.",
       },
     ],
   },
