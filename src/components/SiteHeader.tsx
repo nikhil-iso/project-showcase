@@ -39,7 +39,7 @@ export function SiteHeader() {
         <a href={canonicalUrl("/")} className="text-sm font-semibold tracking-tight">
           Nikhil - Eng
         </a>
-        <nav className="hidden gap-5 text-sm sm:flex">
+        <nav className="flex gap-3 text-sm sm:gap-5">
           {navLinks.map((l) => {
             const isActive = pathname === l.path;
             return (
