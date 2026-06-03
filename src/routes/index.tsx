@@ -98,15 +98,23 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-4xl px-6 pt-20 pb-16 sm:px-8">
-        <header className="mb-16 flex items-start justify-between gap-6">
-          <div className="min-w-0">
+        <header className="mb-16 flex flex-col items-center gap-6 md:flex-row md:items-start md:justify-between">
+          <Avatar className="h-32 w-32 shrink-0 border border-border bg-muted md:h-48 md:w-48">
+            <AvatarImage
+              src="/profile-picture.JPG"
+              alt="Nikhil Patel profile picture"
+              className="object-cover"
+            />
+            <AvatarFallback className="text-lg font-medium">NP</AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 text-center md:text-left">
             <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
             <p className="mt-2 text-muted-foreground">
               Electrical Engineering student at the University of Saskatchewan. <br />
                <br />
               Rocketry, embedded systems, robotics, prosthesis and hardware design.
             </p>
-            <nav className="mt-5 flex flex-wrap gap-3 text-base">
+            <nav className="mt-5 flex flex-wrap justify-center gap-3 text-base md:justify-start">
               <a
                 href="mailto:nikhil.patel@usask.ca"
                 className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline"
@@ -131,14 +139,6 @@ function Index() {
               </a>
             </nav>
           </div>
-          <Avatar className="h-48 w-48 border border-border bg-muted">
-            <AvatarImage
-              src="/profile-picture.JPG"
-              alt="Nikhil Patel profile picture"
-              className="object-cover"
-            />
-            <AvatarFallback className="text-lg font-medium">NP</AvatarFallback>
-          </Avatar>
         </header>
 
         <section className="mb-16">
