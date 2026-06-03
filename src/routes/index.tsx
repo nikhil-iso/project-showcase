@@ -97,7 +97,7 @@ const personalProjects: Project[] = [
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8">
+      <div className="mx-auto max-w-4xl px-6 pt-20 pb-16 sm:px-8">
         <header className="mb-16 flex items-start justify-between gap-6">
           <div className="min-w-0">
             <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
