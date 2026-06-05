@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type DetailBlock =
   | { type: "text"; content: string }
@@ -12,6 +12,13 @@ export type Project = {
   links?: { label: string; href: string }[];
   details?: DetailBlock[];
 };
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
   return (
@@ -101,36 +108,83 @@ function ProjectMeta({ p }: { p: Project }) {
 export function ProjectList({ projects }: { projects: Project[] }) {
   // separate state for desktop slide-over vs mobile inline dropdown
   const [panelIdx, setPanelIdx] = useState<number | null>(null);
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const detailRefs = useRef<Array<HTMLDetailsElement | null>>([]);
 
   const active = panelIdx !== null ? projects[panelIdx] : null;
+
+  // On mount (and on hash change), if the URL targets a project slug OR a text
+  // fragment that lives inside one of our <details> blocks, force that block
+  // open and scroll it into view so anchors and Chrome "copy link to highlight"
+  // links resolve correctly.
+  useEffect(() => {
+    const slugs = projects.map((p) => slugify(p.title));
+
+    const openMatching = () => {
+      const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+      if (!hash) return;
+
+      // Plain #slug anchor
+      const slugMatch = hash.split(":~:")[0];
+      let idx = slugs.indexOf(slugMatch);
+
+      // Text fragment (#:~:text=...) — find which project contains the text
+      if (idx === -1 && hash.includes(":~:text=")) {
+        const raw = hash.split(":~:text=")[1] ?? "";
+        const needle = decodeURIComponent(raw.split("&")[0].split(",")[0])
+          .toLowerCase()
+          .trim();
+        if (needle) {
+          idx = projects.findIndex((p) => {
+            const hay = [
+              p.title,
+              p.description,
+              ...(p.details ?? []).map((d) =>
+                d.type === "text" ? d.content : d.type === "image" || d.type === "video" ? d.caption ?? "" : ""
+              ),
+            ]
+              .join(" ")
+              .toLowerCase();
+            return hay.includes(needle);
+          });
+        }
+      }
+
+      if (idx >= 0) {
+        const el = detailRefs.current[idx];
+        if (el) {
+          el.open = true;
+          // Defer to let layout settle before scrolling.
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
+      }
+    };
+
+    openMatching();
+    window.addEventListener("hashchange", openMatching);
+    return () => window.removeEventListener("hashchange", openMatching);
+  }, [projects]);
 
   return (
     <>
       <ul className="space-y-8">
         {projects.map((p, i) => {
-          const isOpen = openIdx === i;
+          const slug = slugify(p.title);
+          const hasDetails = !!p.details && p.details.length > 0;
           return (
-            <li key={p.title} className="border-l-2 border-border pl-4">
+            <li key={p.title} id={slug} className="scroll-mt-20 border-l-2 border-border pl-4">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="min-w-0 flex-1 break-words font-medium">{p.title}</h3>
-                <>
+                {hasDetails && (
                   <button
                     type="button"
                     onClick={() => setPanelIdx(i)}
                     className="hidden shrink-0 rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:border-accent hover:text-accent md:inline-block"
                   >
-                    Details
+                    Open
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setOpenIdx(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="shrink-0 rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:border-accent hover:text-accent md:hidden"
-                  >
-                    {isOpen ? "Hide" : "Details"}
-                  </button>
-                </>
+                )}
               </div>
               <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{p.description}</p>
               <p className="mt-2 text-xs text-muted-foreground">{p.tech.join(" · ")}</p>
@@ -149,10 +203,21 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                   ))}
                 </div>
               )}
-              {isOpen && p.details && p.details.length > 0 && (
-                <div className="mt-3 rounded border border-border bg-card p-3 md:hidden">
-                  <DetailBlocks blocks={p.details} />
-                </div>
+              {hasDetails && (
+                <details
+                  ref={(el) => {
+                    detailRefs.current[i] = el;
+                  }}
+                  className="group mt-3 rounded border border-border bg-card"
+                >
+                  <summary className="cursor-pointer list-none px-3 py-2 text-xs text-muted-foreground hover:text-accent [&::-webkit-details-marker]:hidden">
+                    <span className="group-open:hidden">Show details</span>
+                    <span className="hidden group-open:inline">Hide details</span>
+                  </summary>
+                  <div className="border-t border-border p-3">
+                    <DetailBlocks blocks={p.details!} />
+                  </div>
+                </details>
               )}
             </li>
           );

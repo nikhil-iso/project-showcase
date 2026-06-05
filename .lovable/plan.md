@@ -1,54 +1,39 @@
-## 1. Darker grey theme
+## Goal
 
-In `src/styles.css`, drop the lightness on the grey tokens:
-- `--background`: `oklch(0.22 0 0)` → `oklch(0.16 0 0)`
-- `--card` / `--popover`: `oklch(0.26 0 0)` → `oklch(0.20 0 0)`
-- `--secondary` / `--muted`: `oklch(0.30 0 0)` → `oklch(0.24 0 0)`
-- `--border` / `--input`: `oklch(0.36 0 0)` → `oklch(0.30 0 0)`
+Allow direct links to any project (e.g. `/team#project-up`) and to highlighted text inside a project's details (Chrome's "Copy link to highlight" → `#:~:text=...`). Keep the current collapsed-by-default UX so the pages still look clean.
 
-Blue primary and purple accent stay the same.
+## Why the current code breaks this
 
-## 2. Interleaved text + images in project details
+In `src/components/ProjectList.tsx`, detail content is only rendered when `openIdx === i` (mobile) or `panelIdx === i` (desktop). Text fragments and `#hash` scrolling rely on the target text/element being in the DOM at load time, so today nothing matches and the browser scrolls nowhere.
 
-Change the `details` field on `Project` from a single string to an ordered array of blocks:
+## Changes
 
-```ts
-type DetailBlock =
-  | { type: "text"; content: string }
-  | { type: "image"; src: string; alt: string; caption?: string };
+### 1. `src/components/ProjectList.tsx`
+- Add a `slugify(title)` helper. Each `<li>` gets `id={slug}` so `/team#project-up`, `/#chess-engine`, etc. work.
+- Always render the `DetailBlocks` for every project in the DOM. Hide them visually when collapsed using `<details>` (native HTML) OR a `hidden` attribute toggled by state combined with CSS `display: none`. Prefer `<details>`/`<summary>` because:
+  - Native browser support for in-page find (Ctrl+F) auto-expanding matching `<details>`.
+  - Anchor/text-fragment scroll auto-expands the containing `<details>` in Chromium.
+  - Removes the need for the JS open/close state on mobile entirely.
+- Desktop slide-over: keep the existing slide-over for the polished read view, but feed it from the same already-mounted content (or simply also render details inline on desktop and drop the slide-over — see open question below). Default plan: keep slide-over, and ALSO render the inline collapsed `<details>` on desktop so links still resolve. Slide-over remains a convenience for browsing.
+- On mount, read `window.location.hash` (and `:~:text=` fragment). If it targets a project slug or matches text inside one, force that project's `<details>` open and call `scrollIntoView` so the browser highlight lands correctly. This covers Safari/Firefox which don't auto-open `<details>` on fragment nav.
 
-type Project = {
-  // ...
-  details?: DetailBlock[];
-};
-```
+### 2. Styling
+- Style `<summary>` to match the existing "Details" button (border, padding, hover accent) so the visual language is preserved. Hide the default disclosure triangle (`summary::-webkit-details-marker { display: none }` and `list-style: none`).
+- Ensure the slide-over still works on desktop without duplicate visual weight — collapsed inline `<details>` only shows the summary button, identical to today.
 
-Update `ProjectList.tsx`:
-- The desktop slide-over panel and the mobile inline dropdown both render the `details` array in order: text paragraphs as `<p>`, images as `<figure>` with optional caption.
-- Images use plain `<img>` with `loading="lazy"`, rounded border, `max-w-full`.
+### 3. No route changes
+Single-route per page is kept. Anchors and text fragments are pure client-side.
 
-Convert the existing string `details` in `src/routes/index.tsx` and `src/routes/team.tsx` to `[{ type: "text", content: "..." }]` so nothing breaks. Leave them as text-only until you drop images in.
+## Technical notes
 
-## 3. How you add pictures
+- Slugs are derived from `p.title` (lowercase, non-alphanumerics → `-`, collapsed). Stable as long as titles don't change; acceptable for a portfolio.
+- Text fragment support: Chrome/Edge/Opera/Safari 16.1+. Firefox needs a flag. That's the current state of the web platform — nothing we can fix.
+- No backend, no new dependencies.
 
-Two options for each image:
+## Open question (non-blocking)
 
-- **Upload through chat** — drag a PNG/JPG into the chat. I'll save it under `src/assets/<name>.jpg`, import it, and slot it into the right `details` block for the right project. Just tell me which project + roughly where ("after the first paragraph of MRFC").
-- **Drop into `public/`** — put files in `public/images/...` yourself and reference them as `/images/foo.jpg`. No import needed.
-
-Either way the data shape is the same:
-
-```ts
-details: [
-  { type: "text", content: "First paragraph..." },
-  { type: "image", src: mrfcBoard, alt: "MRFC v1 board", caption: "Rev A bring-up" },
-  { type: "text", content: "Second paragraph..." },
-  { type: "image", src: "/images/mrfc-flight.jpg", alt: "Test flight" },
-]
-```
+Should the desktop slide-over stay, or should desktop also just use inline `<details>` like mobile? Keeping the slide-over is fine but adds redundancy. I'll keep it unless you say otherwise.
 
 ## Files touched
-- `src/styles.css` — darker grey tokens
-- `src/components/ProjectList.tsx` — render `DetailBlock[]` in panel + dropdown, export `DetailBlock` type
-- `src/routes/index.tsx` — convert existing `details` strings to `[{ type: "text", ... }]`
-- `src/routes/team.tsx` — same conversion
+
+- `src/components/ProjectList.tsx` (only file)
