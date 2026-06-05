@@ -3,8 +3,8 @@ import { useRouterState } from "@tanstack/react-router";
 import { canonicalUrl } from "../lib/site";
 
 const pdfs = [
-  { label: "CV", href: canonicalUrl("/Nikhil_Patel_cv.pdf") },
-  { label: "Resume", href: canonicalUrl("/Nikhil_Patel_Resume.pdf") },
+  { label: "CV", href: canonicalUrl("/Nikhil_Patel-Curriculum_Vitae.pdf") },
+  { label: "Resume", href: canonicalUrl("/Nikhil_Patel-Resume_2026.pdf") },
   { label: "Portfolio", href: canonicalUrl("/Nikhil_Patel_Projects.pdf") },
 ];
 
