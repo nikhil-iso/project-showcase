@@ -106,16 +106,14 @@ function ProjectMeta({ p }: { p: Project }) {
 }
 
 export function ProjectList({ projects }: { projects: Project[] }) {
-  // separate state for desktop slide-over vs mobile inline dropdown
   const [panelIdx, setPanelIdx] = useState<number | null>(null);
-  const detailRefs = useRef<Array<HTMLDetailsElement | null>>([]);
 
   const active = panelIdx !== null ? projects[panelIdx] : null;
 
   // On mount (and on hash change), if the URL targets a project slug OR a text
-  // fragment that lives inside one of our <details> blocks, force that block
-  // open and scroll it into view so anchors and Chrome "copy link to highlight"
-  // links resolve correctly.
+  // fragment that lives inside one of our project entries, open the panel for
+  // that project and scroll it into view so anchors and Chrome "copy link to
+  // highlight" links resolve correctly.
   useEffect(() => {
     const slugs = projects.map((p) => slugify(p.title));
 
@@ -150,14 +148,13 @@ export function ProjectList({ projects }: { projects: Project[] }) {
       }
 
       if (idx >= 0) {
-        const el = detailRefs.current[idx];
+        const el = document.getElementById(slugs[idx]);
         if (el) {
-          el.open = true;
-          // Defer to let layout settle before scrolling.
           requestAnimationFrame(() => {
             el.scrollIntoView({ behavior: "smooth", block: "start" });
           });
         }
+        setPanelIdx(idx);
       }
     };
 
@@ -180,7 +177,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                   <button
                     type="button"
                     onClick={() => setPanelIdx(i)}
-                    className="hidden shrink-0 rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:border-accent hover:text-accent md:inline-block"
+                    className="shrink-0 rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:border-accent hover:text-accent"
                   >
                     Open
                   </button>
@@ -203,30 +200,14 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                   ))}
                 </div>
               )}
-              {hasDetails && (
-                <details
-                  ref={(el) => {
-                    detailRefs.current[i] = el;
-                  }}
-                  className="group mt-3 rounded border border-border bg-card"
-                >
-                  <summary className="cursor-pointer list-none px-3 py-2 text-xs text-muted-foreground hover:text-accent [&::-webkit-details-marker]:hidden">
-                    <span className="group-open:hidden">Show details</span>
-                    <span className="hidden group-open:inline">Hide details</span>
-                  </summary>
-                  <div className="border-t border-border p-3">
-                    <DetailBlocks blocks={p.details!} />
-                  </div>
-                </details>
-              )}
             </li>
           );
         })}
       </ul>
 
-      {/* Desktop slide-over panel */}
+      {/* Slide-over panel */}
       <div
-        className={`fixed inset-x-0 bottom-0 top-14 z-40 hidden md:block ${active ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`fixed inset-x-0 bottom-0 top-14 z-40 ${active ? "pointer-events-auto" : "pointer-events-none"}`}
         aria-hidden={!active}
       >
         <div
