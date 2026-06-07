@@ -35,36 +35,38 @@ export function SiteHeader() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <a href={canonicalUrl("/")} className="text-sm font-semibold tracking-tight">
-          Nikhil - Eng
-        </a>
-        <nav className="flex gap-3 text-sm sm:gap-5">
-          {navLinks.map((l) => {
-            const isActive = pathname === l.path;
-            return (
+      <div className="mx-auto h-14 max-w-5xl overflow-x-auto sm:overflow-x-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex h-14 w-max min-w-full items-center justify-between gap-6 px-6 sm:w-auto">
+          <a href={canonicalUrl("/")} className="shrink-0 text-sm font-semibold tracking-tight">
+            Nikhil - Eng
+          </a>
+          <nav className="flex shrink-0 gap-3 text-sm sm:gap-5">
+            {navLinks.map((l) => {
+              const isActive = pathname === l.path;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className={`whitespace-nowrap ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                >
+                  {l.label}
+                </a>
+              );
+            })}
+          </nav>
+          <div className="flex shrink-0 gap-2">
+            {pdfs.map((p) => (
               <a
-                key={l.href}
-                href={l.href}
-                className={isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+                key={p.label}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whitespace-nowrap rounded border border-border px-3 py-1 text-xs text-foreground hover:border-primary hover:text-primary"
               >
-                {l.label}
+                {p.label}
               </a>
-            );
-          })}
-        </nav>
-        <div className="flex gap-2">
-          {pdfs.map((p) => (
-            <a
-              key={p.label}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded border border-border px-3 py-1 text-xs text-foreground hover:border-primary hover:text-primary"
-            >
-              {p.label}
-            </a>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </header>
