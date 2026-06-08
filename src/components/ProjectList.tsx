@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export type DetailBlock =
   | { type: "text"; content: string }
-  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "image"; src: string; alt: string; width: number; height: number; caption?: string }
   | { type: "video"; src: string; alt: string; caption?: string; poster?: string };
 
 export type Project = {
@@ -61,7 +61,10 @@ function DetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
             <img
               src={b.src}
               alt={b.alt}
+              width={b.width}
+              height={b.height}
               loading="lazy"
+              decoding="async"
               className="w-full rounded border border-border"
             />
             {b.caption && (

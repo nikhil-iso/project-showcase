@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProjectList, type Project } from "../components/ProjectList";
+import { media } from "../lib/media";
 import { canonicalUrl } from "../lib/site";
 
 export const Route = createFileRoute("/team")({
@@ -36,8 +37,7 @@ const teamProjects: Project[] = [
           "As President I run a 50+ person team across two projects, a University Rocketry team and CUBICS Cube Satelite program.",
       },
       { type: "image", 
-        src: "USST_AGM_Picture.JPG", 
-        alt: "USST Team Picture", 
+        ...media.usstAgmPicture,
         caption: "Figure 1: USST Team Picture at our Annual General Meeting." 
       },
       {
@@ -46,8 +46,7 @@ const teamProjects: Project[] = [
           "As Propulsion Lead on the rocketry project I primarily focus in on the aft-end design, which includes a carbon fiber composite boat tail, custom CNC'd Aluminum motor retention, and a custom aluminum thrust plate that transfers ~8 kN cleanly into the fuselage.",
       },
       { type: "image", 
-        src: "USST_Rocketry_Logo.jpg", 
-        alt: "USST Rocketry", 
+        ...media.usstRocketryLogo,
         caption: "Figure 1: USST Rocketry." 
       },
       {
@@ -79,8 +78,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/Project Up Lower Assembly Section View Annotated.png",
-        alt: "Annotated section view of the Project UP lower propulsion assembly",
+        ...media.projectUpLowerAssembly,
         caption: "Figure 1: Annotated section view of the Project UP lower propulsion assembly.",
       },
       {
@@ -90,8 +88,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/Project UpLower Section Annotated.png",
-        alt: "Annotated Project UP lower propulsion section layout",
+        ...media.projectUpLowerAnnotated,
         caption: "Figure 2: Annotated Project UP lower propulsion section layout.",
       },
       {
@@ -101,8 +98,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/Project Up Lower Section.png",
-        alt: "Project UP lower propulsion section CAD",
+        ...media.projectUpLowerSection,
         caption: "Figure 3: The first iteration of the lower propulsion section CAD showing the aft-end interface with noticible tradeoffs with weight vs preformance.",
       },
       {
@@ -127,14 +123,12 @@ const teamProjects: Project[] = [
       },
       {
         type: "video",
-        src: "/Project Up Launch Video.mp4",
-        alt: "Project UP launch video",
+        ...media.projectUpLaunchVideo,
         caption: "Figure 4: Project UP launch at Launch Canada 2025.",
       },
       {
         type: "image",
-        src: "/Project Up Boat Tail Damage.jpg",
-        alt: "Recovered Project UP boat tail damage after landing",
+        ...media.projectUpBoatTailDamage,
         caption: "Figure 5: Recovered Project UP boat tail damage after landing.",
       },
     ],
@@ -153,8 +147,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/4627logo.png",
-        alt: "FRC 4627 Manning Robotics logo",
+        ...media.frc4627Logo,
         caption: "Figure 1: FRC 4627 Manning Robotics logo.",
       },
       {
@@ -164,8 +157,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/4627Thor.png",
-        alt: "FRC 4627 Thor robot CAD render",
+        ...media.frc4627Thor,
         caption: "Figure 2: FRC 4627 Thor robot CAD render.",
       },
     ],
@@ -183,8 +175,7 @@ const teamProjects: Project[] = [
       },
       {
         type: "image",
-        src: "/skillsbot.JPG",
-        alt: "Skills Alberta Shooter robot CAD render",
+        ...media.skillsBot,
         caption: "Figure 1: Skills Alberta Shooter bot CAD render.",
       },
       {

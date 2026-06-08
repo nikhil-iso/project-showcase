@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+media-source/
+media-dist/
+.codex-remote-attachments/
 .output
 .vinxi
 .tanstack/**
@@ -31,3 +34,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.vercel
+.env*
