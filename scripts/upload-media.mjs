@@ -36,8 +36,8 @@ async function loadLocalEnv() {
 
 function run(args) {
   const env = { ...process.env };
-  if (env.BLOB_READ_WRITE_TOKEN && env.BLOB_READ_WRITE_TOKEN.length > 20) {
-    delete env.VERCEL_OIDC_TOKEN;
+  if (env.VERCEL_OIDC_TOKEN && env.BLOB_STORE_ID) {
+    delete env.BLOB_READ_WRITE_TOKEN;
   }
 
   return new Promise((resolve, reject) => {
@@ -64,15 +64,22 @@ await loadLocalEnv();
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const assets = Object.entries(manifest.assets);
 
-const hasReadWriteToken = process.env.BLOB_READ_WRITE_TOKEN && process.env.BLOB_READ_WRITE_TOKEN.length > 20;
+const hasReadWriteToken =
+  process.env.BLOB_READ_WRITE_TOKEN && process.env.BLOB_READ_WRITE_TOKEN.length > 20;
 const hasOidcCredentials = process.env.VERCEL_OIDC_TOKEN && process.env.BLOB_STORE_ID;
-const authArgs = !hasReadWriteToken && hasOidcCredentials
+const authArgs = hasOidcCredentials
   ? ["--oidc-token", process.env.VERCEL_OIDC_TOKEN, "--store-id", process.env.BLOB_STORE_ID]
   : [];
 
 if (!hasReadWriteToken && !hasOidcCredentials) {
   throw new Error(
     "No usable Vercel Blob credentials found. Run `vercel env pull .env.local --yes --environment=production` after connecting the Blob store.",
+  );
+}
+
+if (!hasOidcCredentials && hasReadWriteToken) {
+  console.warn(
+    "Using legacy BLOB_READ_WRITE_TOKEN. Run `vercel env pull .env.local --yes --environment=production` after redeploying the project to upload with OIDC instead.",
   );
 }
 
