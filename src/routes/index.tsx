@@ -144,6 +144,12 @@ function Index() {
               >
                 LinkedIn
               </a>
+              <a
+                href={canonicalUrl("/team")}
+                className="rounded border border-border px-3 py-1.5 text-primary hover:border-primary hover:no-underline md:hidden"
+              >
+                Team Projects
+              </a>
             </nav>
           </div>
         </header>
