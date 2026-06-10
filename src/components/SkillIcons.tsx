@@ -1,6 +1,6 @@
 // Auto-discovers WebP icons in src/assets/skill-icons/<category>/*.webp at build
 // time via Vite's import.meta.glob. To add a new icon, drop a PNG/JPG/SVG into
-// media-source/skill-icons/<category>/ and run `bun run icons:build`.
+// media-source/skill-icons/<category>/ and run `npm run icons:build`.
 
 const engineeringIcons = import.meta.glob("../assets/skill-icons/engineering/*.webp", {
   eager: true,
@@ -23,7 +23,10 @@ const platformIcons = import.meta.glob("../assets/skill-icons/platforms/*.webp",
 type IconEntry = { name: string; url: string };
 
 function fileNameOf(path: string) {
-  return path.split("/").pop()!.replace(/\.webp$/i, "");
+  return path
+    .split("/")
+    .pop()!
+    .replace(/\.webp$/i, "");
 }
 
 function prettify(name: string) {
@@ -44,7 +47,7 @@ function IconGrid({ entries }: { entries: IconEntry[] }) {
     return (
       <p className="text-xs italic text-muted-foreground">
         No icons yet. Drop images into <code className="font-mono">media-source/skill-icons/</code>{" "}
-        and run <code className="font-mono">bun run icons:build</code>.
+        and run <code className="font-mono">npm run icons:build</code>.
       </p>
     );
   }
