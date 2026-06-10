@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "media:optimize": "node scripts/optimize-media.mjs",
     "media:upload": "node scripts/upload-media.mjs",
+    "icons:build": "node scripts/build-skill-icons.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."

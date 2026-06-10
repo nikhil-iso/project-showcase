@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { ProjectList, type Project } from "../components/ProjectList";
+import { SkillIcons } from "../components/SkillIcons";
 import { media } from "../lib/media";
 import { canonicalUrl } from "../lib/site";
 
@@ -181,30 +182,7 @@ function Index() {
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Skills
           </h2>
-          <div className="grid gap-6 text-sm leading-relaxed md:grid-cols-3">
-            <div>
-              <h3 className="mb-2 font-medium text-foreground">Engineering Tools</h3>
-              <p className="text-muted-foreground">
-                Fusion 360, KiCAD, Inventor, ANSYS FEA, OpenRocket, 
-                Sketchup, Reviet, Civil 3D, Solidworks, OnShape, AutoCAD
-                Solidworks, 3D Printing, CNC Machining, Composite Manufacturing
-              </p>
-            </div>
-            <div>
-              <h3 className="mb-2 font-medium text-foreground">Programming Languages</h3>
-              <p className="text-muted-foreground">
-                C/C++, Excel, MATLAB, Python, HTML, CSS, JavaScript,
-              </p>
-            </div>
-            <div>
-              <h3 className="mb-2 font-medium text-foreground">Platforms</h3>
-              <p className="text-muted-foreground">
-                Vercel, GitHub, MC Projects, Autodesk,
-                PlatformIO, Arduino, ESP32, Teensy, Git, Linux,
-                Google Suite, MS Office,
-              </p>
-            </div>
-          </div>
+          <SkillIcons />
         </section>
 
       </div>
