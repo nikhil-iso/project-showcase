@@ -207,9 +207,6 @@ function Index() {
           </div>
         </section>
 
-        <footer className="border-t border-border pt-6 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Nikhil Patel. All Rights Reserved.
-        </footer>
       </div>
     </div>
   );

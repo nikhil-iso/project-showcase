@@ -11,7 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/SiteHeader";
-import { ThemeToggle } from "../components/ThemeToggle";
+import { SiteFooter } from "../components/SiteFooter";
 import { canonicalUrl } from "../lib/site";
 
 function NotFoundComponent() {
@@ -134,7 +134,7 @@ function RootComponent() {
       <div className="pt-14">
         <Outlet />
       </div>
-      <ThemeToggle />
+      <SiteFooter />
     </QueryClientProvider>
   );
 }
