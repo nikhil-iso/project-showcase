@@ -52,14 +52,14 @@ function IconGrid({ entries }: { entries: IconEntry[] }) {
     );
   }
   return (
-    <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+    <ul className="grid grid-cols-3 gap-2">
       {entries.map((e) => (
         <li
           key={e.url}
-          className="group flex flex-col items-center gap-2 rounded-lg border border-border bg-card/40 p-3 text-center transition-colors hover:border-primary"
+          className="group flex size-20 flex-col items-center justify-center gap-1 rounded-lg border border-border bg-card/40 p-2 text-center transition-colors hover:border-primary"
           title={e.name}
         >
-          <div className="flex h-12 w-12 items-center justify-center">
+          <div className="flex h-9 w-9 items-center justify-center">
             <img
               src={e.url}
               alt={e.name}
@@ -68,7 +68,7 @@ function IconGrid({ entries }: { entries: IconEntry[] }) {
               className="max-h-full max-w-full object-contain"
             />
           </div>
-          <span className="line-clamp-2 text-[11px] leading-tight text-muted-foreground group-hover:text-foreground">
+          <span className="line-clamp-2 text-[10px] leading-tight text-muted-foreground group-hover:text-foreground">
             {e.name}
           </span>
         </li>
