@@ -11,6 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/SiteHeader";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { canonicalUrl } from "../lib/site";
 
 function NotFoundComponent() {
@@ -106,6 +107,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches;var t=s==='light'||s==='dark'?s:(m?'light':'dark');if(t==='light')document.documentElement.classList.add('light');}catch(e){}})();`,
+          }}
+        />
         <HeadContent />
       </head>
       <body>
@@ -128,6 +134,7 @@ function RootComponent() {
       <div className="pt-14">
         <Outlet />
       </div>
+      <ThemeToggle />
     </QueryClientProvider>
   );
 }
