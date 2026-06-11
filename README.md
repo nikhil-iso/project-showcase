@@ -6,7 +6,7 @@ TanStack Router, Vite, Tailwind CSS v4, and deployed on Vercel.
 Production site:
 
 ```txt
-https://www.nikhil-eng.com
+www.nikhil-eng.com
 ```
 
 ## What The Site Includes
