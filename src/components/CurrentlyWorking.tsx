@@ -1,4 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+
+const GITHUB_USER = "nikhil-iso";
+const COMMIT_REFRESH_INTERVAL_MS = 2 * 60_000;
+const RELATIVE_TIME_REFRESH_INTERVAL_MS = 60_000;
 
 type PushEvent = {
   type: string;
@@ -18,10 +23,13 @@ type LatestCommit = {
 };
 
 async function fetchLatestCommit(): Promise<LatestCommit | null> {
-  const res = await fetch(
-    "https://api.github.com/users/nikhil-iso/events/public",
-    { headers: { Accept: "application/vnd.github+json" } },
-  );
+  const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=30`, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/vnd.github+json",
+      "Cache-Control": "no-cache",
+    },
+  });
   if (!res.ok) return null;
   const events = (await res.json()) as PushEvent[];
   const push = events.find(
@@ -38,9 +46,9 @@ async function fetchLatestCommit(): Promise<LatestCommit | null> {
   };
 }
 
-function relativeTime(iso: string): string {
+function relativeTime(iso: string, now = Date.now()): string {
   const then = new Date(iso).getTime();
-  const diff = Date.now() - then;
+  const diff = now - then;
   const mins = Math.round(diff / 60000);
   if (mins < 1) return "just now";
   if (mins < 60) return `${mins}m ago`;
@@ -54,12 +62,24 @@ function relativeTime(iso: string): string {
 }
 
 export function CurrentlyWorking({ blurb }: { blurb: string }) {
+  const [now, setNow] = useState(() => Date.now());
   const { data: commit } = useQuery({
-    queryKey: ["latest-github-commit", "nikhil-iso"],
+    queryKey: ["latest-github-commit", GITHUB_USER],
     queryFn: fetchLatestCommit,
-    staleTime: 5 * 60_000,
+    refetchInterval: COMMIT_REFRESH_INTERVAL_MS,
+    refetchIntervalInBackground: true,
+    refetchOnWindowFocus: true,
+    staleTime: COMMIT_REFRESH_INTERVAL_MS,
     retry: 1,
   });
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setNow(Date.now());
+    }, RELATIVE_TIME_REFRESH_INTERVAL_MS);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="rounded-lg border border-border bg-muted/30 p-4">
@@ -75,7 +95,7 @@ export function CurrentlyWorking({ blurb }: { blurb: string }) {
           >
             {commit.repoShort}
           </a>{" "}
-          · &ldquo;{commit.message}&rdquo; · {relativeTime(commit.date)}
+          &middot; &ldquo;{commit.message}&rdquo; &middot; {relativeTime(commit.date, now)}
         </p>
       ) : null}
     </div>
