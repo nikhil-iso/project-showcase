@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { ProjectList, type Project } from "../components/ProjectList";
 import { SkillIcons } from "../components/SkillIcons";
+import { CurrentlyWorking } from "../components/CurrentlyWorking";
 import { media } from "../lib/media";
 import { canonicalUrl } from "../lib/site";
 
@@ -169,6 +170,13 @@ function Index() {
             { /* Currently open to internships, co-op positions, and collaborative projects in electrical engineering and mechatronics. */}
 
           </p>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+            Currently
+          </h2>
+          <CurrentlyWorking blurb="Currently working on composite manufacturing for Project Theseus' propulsion boat tail." />
         </section>
 
         <section className="mb-16">
