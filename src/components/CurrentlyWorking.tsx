@@ -10,6 +10,7 @@ type PushEvent = {
   repo: { name: string };
   created_at: string;
   payload: {
+    head?: string;
     commits?: Array<{ sha: string; message: string }>;
   };
 };
@@ -32,17 +33,39 @@ async function fetchLatestCommit(): Promise<LatestCommit | null> {
   });
   if (!res.ok) return null;
   const events = (await res.json()) as PushEvent[];
-  const push = events.find(
-    (e) => e.type === "PushEvent" && e.payload.commits && e.payload.commits.length > 0,
-  );
+  const push = events.find((e) => e.type === "PushEvent");
   if (!push) return null;
-  const commit = push.payload.commits![push.payload.commits!.length - 1];
+
+  // Prefer inline commits when present; otherwise fetch by head SHA.
+  let sha: string | undefined;
+  let message: string | undefined;
+  if (push.payload.commits && push.payload.commits.length > 0) {
+    const c = push.payload.commits[push.payload.commits.length - 1];
+    sha = c.sha;
+    message = c.message;
+  } else if (push.payload.head) {
+    sha = push.payload.head;
+    try {
+      const cRes = await fetch(
+        `https://api.github.com/repos/${push.repo.name}/commits/${sha}`,
+        { headers: { Accept: "application/vnd.github+json" } },
+      );
+      if (cRes.ok) {
+        const data = (await cRes.json()) as { commit?: { message?: string } };
+        message = data.commit?.message;
+      }
+    } catch {
+      // ignore — we'll fall back to a generic label
+    }
+  }
+  if (!sha) return null;
+
   return {
     repo: push.repo.name,
     repoShort: push.repo.name.split("/").pop() ?? push.repo.name,
-    message: commit.message.split("\n")[0],
+    message: (message ?? "new commit").split("\n")[0],
     date: push.created_at,
-    url: `https://github.com/${push.repo.name}/commit/${commit.sha}`,
+    url: `https://github.com/${push.repo.name}/commit/${sha}`,
   };
 }
 
