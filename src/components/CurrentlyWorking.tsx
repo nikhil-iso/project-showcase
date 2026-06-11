@@ -28,10 +28,11 @@ async function fetchLatestCommit(): Promise<LatestCommit | null> {
     cache: "no-store",
     headers: {
       Accept: "application/vnd.github+json",
-      "Cache-Control": "no-cache",
     },
   });
-  if (!res.ok) return null;
+  if (!res.ok) {
+    throw new Error(`GitHub events request failed with ${res.status}`);
+  }
   const events = (await res.json()) as PushEvent[];
   const push = events.find((e) => e.type === "PushEvent");
   if (!push) return null;
@@ -46,16 +47,15 @@ async function fetchLatestCommit(): Promise<LatestCommit | null> {
   } else if (push.payload.head) {
     sha = push.payload.head;
     try {
-      const cRes = await fetch(
-        `https://api.github.com/repos/${push.repo.name}/commits/${sha}`,
-        { headers: { Accept: "application/vnd.github+json" } },
-      );
+      const cRes = await fetch(`https://api.github.com/repos/${push.repo.name}/commits/${sha}`, {
+        headers: { Accept: "application/vnd.github+json" },
+      });
       if (cRes.ok) {
         const data = (await cRes.json()) as { commit?: { message?: string } };
         message = data.commit?.message;
       }
     } catch {
-      // ignore — we'll fall back to a generic label
+      // Ignore commit detail failures; the event still links to the commit SHA.
     }
   }
   if (!sha) return null;
@@ -86,7 +86,11 @@ function relativeTime(iso: string, now = Date.now()): string {
 
 export function CurrentlyWorking({ blurb }: { blurb: string }) {
   const [now, setNow] = useState(() => Date.now());
-  const { data: commit } = useQuery({
+  const {
+    data: commit,
+    isError,
+    isPending,
+  } = useQuery({
     queryKey: ["latest-github-commit", GITHUB_USER],
     queryFn: fetchLatestCommit,
     refetchInterval: COMMIT_REFRESH_INTERVAL_MS,
@@ -120,7 +124,16 @@ export function CurrentlyWorking({ blurb }: { blurb: string }) {
           </a>{" "}
           &middot; &ldquo;{commit.message}&rdquo; &middot; {relativeTime(commit.date, now)}
         </p>
-      ) : null}
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">
+          <span className="text-foreground/80">Latest commit:</span>{" "}
+          {isPending
+            ? "Checking GitHub..."
+            : isError
+              ? "Temporarily unavailable"
+              : "No public commits found"}
+        </p>
+      )}
     </div>
   );
 }
