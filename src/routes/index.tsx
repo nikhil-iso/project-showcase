@@ -156,7 +156,7 @@ function Index() {
           </div>
         </header>
 
-        <section className="mb-16">
+        <section className="mb-6">
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             About
           </h2>
