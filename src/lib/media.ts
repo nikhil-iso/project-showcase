@@ -93,6 +93,17 @@ export const media = {
     1200,
     1600,
   ),
+  projectTheseusBoatTailShell: image(
+    "project-theseus-boat-tail-shell.webp",
+    "Project Theseus non-woven fiberglass and epoxy boat tail shell manufacturing test",
+    1200,
+    2128,
+  ),
+  projectTheseusBoatTailShellVideo: video(
+    "project-theseus-boat-tail-shell-post-removal-video.mp4",
+    "Project Theseus composite boat tail shell after removal from the PETG press",
+    `${blobBaseUrl}/portfolio/images/project-theseus-boat-tail-shell.webp`,
+  ),
   frc4627Logo: image("frc-4627-logo.webp", "FRC 4627 Manning Robotics logo", 178, 225),
   frc4627Thor: image("frc-4627-thor.webp", "FRC 4627 Thor robot CAD render", 1200, 567),
   skillsBot: image("skills-bot.webp", "Skills Alberta Shooter robot CAD render", 1105, 829),

@@ -27,8 +27,8 @@ const teamProjects: Project[] = [
   {
     title: 'Project "Theseus" - USST Rocketry (President & Propulsion Lead)',
     description:
-      "Redesign of the team's M-class rocket for Launch Canada 2026. Composite boat tail, threaded external motor retention, thrust plate with clean load path into fuselage, structural FEA at 8 kN thrust loads. 26-person team.",
-    tech: ["SolidWorks", "Fusion 360", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "CNC"],
+      "Redesign of the team's M-class rocket for Launch Canada 2026. Composite boat tail development, threaded external motor retention, thrust plate with clean load path into fuselage, structural FEA at 8 kN thrust loads. 26-person team.",
+    tech: ["SolidWorks", "Fusion 360", "ANSYS FEA", "OpenRocket", "MATLAB", "Composites", "PETG Tooling", "CNC"],
     links: [{ label: "usst.ca", href: "https://www.usst.ca" }],
     details: [
       {
@@ -45,9 +45,31 @@ const teamProjects: Project[] = [
         content:
           "As Propulsion Lead on the rocketry project I primarily focus in on the aft-end design, which includes a carbon fiber composite boat tail, custom CNC'd Aluminum motor retention, and a custom aluminum thrust plate that transfers ~8 kN cleanly into the fuselage.",
       },
+      {
+        type: "image",
+        ...media.projectTheseusBoatTailShell,
+        caption:
+          "Figure 2: Project Theseus non-woven fiberglass and epoxy boat tail shell after removal from the PETG tooling.",
+      },
+      {
+        type: "text",
+        content:
+          "A major part of my current work is learning composite manufacturing by building a full-scale boat tail shell test article. This shell is made from non-woven fiberglass and epoxy resin, and it serves two purposes: it is a manufacturing trial for the final Project Theseus boat tail process, and it can become a backup shell if later iterations do not meet schedule or quality requirements.",
+      },
+      {
+        type: "text",
+        content:
+          "For this first run, I tore the non-woven fiberglass into small, thin patches, placed them over a 3D printed PETG mold, and wet them out with fiberglass resin. I built the cone layer by layer with overlapping patches so the material could conform to the truncated cone geometry. After roughly 20 minutes of working time, a second 3D printed PETG cone was pressed over the first mold, sandwiching the composite between the two printed tools. That two-part press formed the final truncated cone and gave the exterior edge a flatter, cleaner face than an open hand layup would have produced.",
+      },
+      {
+        type: "video",
+        ...media.projectTheseusBoatTailShellVideo,
+        caption:
+          "Figure 3: Post-removal look at the Project Theseus composite boat tail shell test article.",
+      },
       { type: "image", 
         ...media.usstRocketryLogo,
-        caption: "Figure 1: USST Rocketry." 
+        caption: "Figure 4: USST Rocketry." 
       },
       {
         type: "text",

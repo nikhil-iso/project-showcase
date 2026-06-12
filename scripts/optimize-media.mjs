@@ -112,6 +112,11 @@ const imageAssets = [
     output: "project-up-boat-tail-damage.webp",
   },
   {
+    key: "projectTheseusBoatTailShell",
+    source: "Project Theseus Boat Tail Shell Composite Post Removal.jpg",
+    output: "project-theseus-boat-tail-shell.webp",
+  },
+  {
     key: "frc4627Logo",
     source: "4627logo.png",
     output: "frc-4627-logo.webp",
@@ -138,6 +143,11 @@ const videoAssets = [
     key: "projectUpLaunchVideo",
     source: "Project Up Launch Video.mp4",
     output: "project-up-launch-video.mp4",
+  },
+  {
+    key: "projectTheseusBoatTailShellVideo",
+    source: "Project Theseus Boat Tail Shell Post Removal Video.mp4",
+    output: "project-theseus-boat-tail-shell-post-removal-video.mp4",
   },
 ];
 

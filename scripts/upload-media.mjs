@@ -6,8 +6,9 @@ const root = process.cwd();
 const outputDir = path.join(root, "media-dist");
 const manifestPath = path.join(outputDir, "manifest.json");
 const cacheControlMaxAge = "2678400";
+const isWindows = process.platform === "win32";
 
-const cli = process.platform === "win32" ? "npx.cmd" : "npx";
+const cli = isWindows ? "npx.cmd" : "npx";
 
 async function loadLocalEnv() {
   try {
@@ -36,12 +37,14 @@ async function loadLocalEnv() {
 
 function run(args) {
   const env = { ...process.env };
-  if (env.VERCEL_OIDC_TOKEN && env.BLOB_STORE_ID) {
+  if (useOidcCredentials) {
     delete env.BLOB_READ_WRITE_TOKEN;
   }
+  const command = isWindows ? process.env.ComSpec || "cmd.exe" : cli;
+  const commandArgs = isWindows ? ["/d", "/s", "/c", cli, ...args] : args;
 
   return new Promise((resolve, reject) => {
-    const child = spawn(cli, args, {
+    const child = spawn(command, commandArgs, {
       cwd: root,
       env,
       stdio: "inherit",
@@ -53,7 +56,7 @@ function run(args) {
       if (code === 0) {
         resolve();
       } else {
-        reject(new Error(`${cli} ${args.join(" ")} exited with code ${code}`));
+        reject(new Error(`${cli} vercel blob put exited with code ${code}`));
       }
     });
   });
@@ -67,7 +70,8 @@ const assets = Object.entries(manifest.assets);
 const hasReadWriteToken =
   process.env.BLOB_READ_WRITE_TOKEN && process.env.BLOB_READ_WRITE_TOKEN.length > 20;
 const hasOidcCredentials = process.env.VERCEL_OIDC_TOKEN && process.env.BLOB_STORE_ID;
-const authArgs = hasOidcCredentials
+const useOidcCredentials = hasOidcCredentials && !hasReadWriteToken;
+const authArgs = useOidcCredentials
   ? ["--oidc-token", process.env.VERCEL_OIDC_TOKEN, "--store-id", process.env.BLOB_STORE_ID]
   : [];
 
@@ -77,9 +81,9 @@ if (!hasReadWriteToken && !hasOidcCredentials) {
   );
 }
 
-if (!hasOidcCredentials && hasReadWriteToken) {
+if (hasReadWriteToken) {
   console.warn(
-    "Using legacy BLOB_READ_WRITE_TOKEN. Run `vercel env pull .env.local --yes --environment=production` after redeploying the project to upload with OIDC instead.",
+    "Using BLOB_READ_WRITE_TOKEN. Run `vercel env pull .env.local --yes --environment=production` after redeploying the project to upload with OIDC instead.",
   );
 }
 
