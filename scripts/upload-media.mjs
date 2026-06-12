@@ -39,6 +39,9 @@ function run(args) {
   const env = { ...process.env };
   if (useOidcCredentials) {
     delete env.BLOB_READ_WRITE_TOKEN;
+  } else if (hasReadWriteToken) {
+    delete env.VERCEL_OIDC_TOKEN;
+    delete env.BLOB_STORE_ID;
   }
   const command = isWindows ? process.env.ComSpec || "cmd.exe" : cli;
   const commandArgs = isWindows ? ["/d", "/s", "/c", cli, ...args] : args;
@@ -101,6 +104,8 @@ for (const [key, asset] of assets) {
     asset.pathname,
     "--access",
     "public",
+    "--allow-overwrite",
+    "true",
     "--cache-control-max-age",
     cacheControlMaxAge,
   ]);
