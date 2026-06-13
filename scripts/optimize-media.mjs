@@ -117,6 +117,26 @@ const imageAssets = [
     output: "project-theseus-boat-tail-shell.webp",
   },
   {
+    key: "projectTheseusBoatTailSkeletonThrustPlate",
+    source: "Boat tail Skeleton + Thrust Plate Post flight.jpg",
+    output: "project-theseus-boat-tail-skeleton-thrust-plate.webp",
+  },
+  {
+    key: "projectTheseusThrustPlatePostFlight",
+    source: "Thrust Plate Manufactured Post flight.jpg",
+    output: "project-theseus-thrust-plate-post-flight.webp",
+  },
+  {
+    key: "projectTheseusBoatTailSkeletonThrustPlateDetail",
+    source: "Boat Tail Skeleton + Thrust Plate Post flight 2.jpg",
+    output: "project-theseus-boat-tail-skeleton-thrust-plate-detail.webp",
+  },
+  {
+    key: "projectTheseusBoatTailSkeletonManufactured",
+    source: "Boat Til Skeleton Manufactured Post flight.jpg",
+    output: "project-theseus-boat-tail-skeleton-manufactured.webp",
+  },
+  {
     key: "frc4627Logo",
     source: "4627logo.png",
     output: "frc-4627-logo.webp",

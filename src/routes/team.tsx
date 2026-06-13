@@ -67,10 +67,35 @@ const teamProjects: Project[] = [
         caption:
           "Figure 3: Post-removal look at the Project Theseus composite boat tail shell test article.",
       },
-      { type: "image", 
-        ...media.usstRocketryLogo,
-        caption: "Figure 4: USST Rocketry." 
+      {
+        type: "text",
+        content:
+          "The same aft-end architecture also depends on machined aluminum hardware. The thrust plate and threaded boat tail skeleton provide the motor retention interface, transfer thrust into the airframe, and give the composite shell a repeatable mounting surface. These photos show the manufactured hardware during post-flight and post-fit inspection, including the threaded interface, witness marks, and fin support tabs.",
       },
+      {
+        type: "image",
+        ...media.projectTheseusThrustPlatePostFlight,
+        caption: "Figure 4: Project Theseus machined thrust plate after post-flight inspection.",
+      },
+      {
+        type: "image",
+        ...media.projectTheseusBoatTailSkeletonThrustPlate,
+        caption:
+          "Figure 5: Boat tail skeleton and thrust plate assembled, showing the threaded motor-retention interface and support tabs.",
+      },
+      {
+        type: "image",
+        ...media.projectTheseusBoatTailSkeletonThrustPlateDetail,
+        caption:
+          "Figure 6: Close-up of the boat tail skeleton and thrust plate interface, showing thread engagement and post-flight witness marks.",
+      },
+      {
+        type: "image",
+        ...media.projectTheseusBoatTailSkeletonManufactured,
+        caption:
+          "Figure 7: Manufactured boat tail skeleton with internal threads and fin support tabs.",
+      },
+      { type: "image", ...media.usstRocketryLogo, caption: "Figure 8: USST Rocketry." },
       {
         type: "text",
         content:

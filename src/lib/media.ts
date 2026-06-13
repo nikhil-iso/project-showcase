@@ -99,6 +99,30 @@ export const media = {
     1200,
     2128,
   ),
+  projectTheseusBoatTailSkeletonThrustPlate: image(
+    "project-theseus-boat-tail-skeleton-thrust-plate.webp",
+    "Project Theseus boat tail skeleton and thrust plate assembly after post-flight inspection",
+    1200,
+    2128,
+  ),
+  projectTheseusThrustPlatePostFlight: image(
+    "project-theseus-thrust-plate-post-flight.webp",
+    "Project Theseus machined thrust plate after post-flight inspection",
+    1200,
+    677,
+  ),
+  projectTheseusBoatTailSkeletonThrustPlateDetail: image(
+    "project-theseus-boat-tail-skeleton-thrust-plate-detail.webp",
+    "Close-up of the Project Theseus boat tail skeleton and thrust plate interface",
+    1200,
+    2128,
+  ),
+  projectTheseusBoatTailSkeletonManufactured: image(
+    "project-theseus-boat-tail-skeleton-manufactured.webp",
+    "Project Theseus machined boat tail skeleton with internal threads and support tabs",
+    1200,
+    677,
+  ),
   projectTheseusBoatTailShellVideo: video(
     "project-theseus-boat-tail-shell-post-removal-video.mp4",
     "Project Theseus composite boat tail shell after removal from the PETG press",
