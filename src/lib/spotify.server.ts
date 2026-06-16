@@ -207,16 +207,17 @@ async function getRecentlyPlayed(token: string): Promise<SpotifyListeningStatus 
 
 export async function getSpotifyListeningStatus(): Promise<SpotifyListeningStatus> {
   const config = getSpotifyConfig();
-  const accessToken = await getAccessToken();
-
-  if (!accessToken) {
-    return {
-      state: "unconfigured",
-      showSetupHint: config.showSetupHint,
-    };
-  }
 
   try {
+    const accessToken = await getAccessToken();
+
+    if (!accessToken) {
+      return {
+        state: "unconfigured",
+        showSetupHint: config.showSetupHint,
+      };
+    }
+
     const currentlyPlaying = await getCurrentlyPlaying(accessToken);
     if (currentlyPlaying) return currentlyPlaying;
 

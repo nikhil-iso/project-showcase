@@ -41,7 +41,7 @@ function ListeningShell({
   ariaLabel: string;
 }) {
   const className =
-    "group flex min-h-16 w-full max-w-full items-center gap-3 rounded border border-border bg-card/60 px-3 py-2 text-left text-xs text-foreground transition-colors hover:border-primary/70 sm:w-[360px]";
+    "group flex min-h-16 w-full max-w-full items-center gap-3 rounded border border-border bg-card/60 px-3 py-2 text-left text-xs text-foreground transition-colors hover:border-primary/70";
 
   if (href) {
     return (
