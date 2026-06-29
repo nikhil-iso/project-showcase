@@ -176,7 +176,7 @@ function Index() {
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Currently
           </h2>
-          <CurrentlyWorking blurb="Currently @ SAIT, building in my free time. /">
+          <CurrentlyWorking blurb="Currently @ SAIT, Buidling rockets in my free time 🚀" />
         </section>
 
         <section className="mb-16">
