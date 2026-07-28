@@ -119,7 +119,7 @@ function Index() {
           <div className="min-w-0 text-center md:text-left">
             <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
             <p className="mt-2 text-muted-foreground">
-              Electrical Engineering Technology student at SAIT. Previous President of USST. <br /> 
+              Electrical Engineering Technology student at SAIT. <br /> Previous President & Propulsion lead of USST. <br /> 
               <br />
               Rocketry, embedded systems, robotics, prosthesis and hardware design.
             </p>
