@@ -10,9 +10,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Nikhil Patel - Electrical Engineering Portfolio" },
-      { name: "description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
+      { name: "description", content: "Electrical Engineering Technology student at SAIT. Rocketry, embedded systems, robotics, and hardware design." },
       { property: "og:title", content: "Nikhil Patel - Electrical Engineering Portfolio" },
-      { property: "og:description", content: "Electrical Engineering student at the University of Saskatchewan. Rocketry, embedded systems, robotics, and hardware design." },
+      { property: "og:description", content: "Electrical Engineering Technology student at SAIT. Rocketry, embedded systems, robotics, and hardware design." },
       { property: "og:url", content: canonicalUrl("/") },
     ],
     links: [{ rel: "canonical", href: canonicalUrl("/") }],
@@ -119,7 +119,7 @@ function Index() {
           <div className="min-w-0 text-center md:text-left">
             <h1 className="text-3xl font-semibold tracking-tight">Nikhil Patel</h1>
             <p className="mt-2 text-muted-foreground">
-              Electrical Engineering student at the University of Saskatchewan. President of USST. <br /> 
+              Electrical Engineering Technology student at SAIT. Previous President of USST. <br /> 
               <br />
               Rocketry, embedded systems, robotics, prosthesis and hardware design.
             </p>
@@ -161,9 +161,9 @@ function Index() {
             About
           </h2>
           <p className="leading-relaxed">
-            I&apos;m an Electrical Engineering student at the{" "}
-            <span className="text-[#0b6a41]">University of Saskatchewan</span> based in
-            Saskatoon, SK. I like working on problems that deal with a mix of hardware and software.
+            I&apos;m an Electrical Engineering Technology student at{" "}
+            <span className="text-[#DA291C]">SAIT Polytechnic</span> based in
+            Calgary, AB. I like working on problems that deal with a mix of hardware and software.
             Things like rocketry, space systems and structures, embedded systems, and robotics particularly interest me. <br /><br />
             
             Currently focusing on academics and personal projects. Still open to opportunities and projects in electrical and mechatronics engineering.
@@ -176,7 +176,7 @@ function Index() {
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Currently
           </h2>
-          <CurrentlyWorking blurb="Currently @ SAIT, Buidling rockets in my free time 🚀" />
+          <CurrentlyWorking blurb="Currently @ SAIT, Building rockets + vision detection in my free time 🚀" />
         </section>
 
         <section className="mb-16">
