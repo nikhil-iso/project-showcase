@@ -13,7 +13,7 @@ export type Project = {
   details?: DetailBlock[];
 };
 
-function slugify(s: string) {
+export function projectSlug(s: string) {
   return s
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
@@ -118,7 +118,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
   // that project and scroll it into view so anchors and Chrome "copy link to
   // highlight" links resolve correctly.
   useEffect(() => {
-    const slugs = projects.map((p) => slugify(p.title));
+    const slugs = projects.map((p) => projectSlug(p.title));
 
     const openMatching = () => {
       const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
@@ -170,7 +170,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
     <>
       <ul className="space-y-8">
         {projects.map((p, i) => {
-          const slug = slugify(p.title);
+          const slug = projectSlug(p.title);
           const hasDetails = !!p.details && p.details.length > 0;
           return (
             <li key={p.title} id={slug} className="scroll-mt-20 border-l-2 border-border pl-4">
