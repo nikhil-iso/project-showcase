@@ -6,7 +6,7 @@ export const personalProjects: Project[] = [
     title: "ARTS - Amateur Rocketry Telemetry System",
     description:
       "ARTS stands for Amateur Rocketry Telemetry System. It is a data collection system designed for Model and High power rocketry. It utilizes an array of sensors and modules onboard a high power rocket to collect and transmit data to a ground station for interpretation and recovery.",
-    tech: ["Teensy 4.1", "PlatformIO", "C++", "MPU6050", "BME280", "I2C", "SD Logging"],
+    tech: ["Teensy 4.1", "Arduino", "PlatformIO", "C++", "MPU6050", "BME280", "I2C", "SD Logging"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/MRFC" }],
     details: [
         { type: "text", content: "I started ARTS as a stepping stone into the avionics side of high and mid power rocketry. Most of my work on the USST has been in rocketry propulsion, and as propulsion lead I do not usually get to spend much time working directly with electrical engineering fields even though that is what I am studying. ARTS is a way for me to bring that side of rocketry closer to my own studies and knowledge." },
@@ -23,7 +23,7 @@ export const personalProjects: Project[] = [
     title: "SimuLight Sunrise",
     description:
       "First-year engineering project that uses an ESP32, DS3231 RTC, and 12V light bar to make dark Saskatoon mornings a little easier.",
-    tech: ["ESP32", "C++", "Python", "KiCad", "Fusion 360", "DS3231", "MOSFET"],
+    tech: ["ESP32", "Arduino", "C++", "Python", "KiCad", "Fusion 360", "DS3231", "MOSFET"],
     links: [{ label: "GitHub", href: "https://github.com/nikhil-iso/SimulightSunrise" }],
     details: [
         { type: "text", content: "SimuLight Sunrise started in my first year of engineering because my dorm room window faced a wall... Even during the day, I did not get much direct sunlight. In the middle of a Saskatoon winter, that meant I was usually waking up before there was any real sunrise at all." },
@@ -76,7 +76,7 @@ export const personalProjects: Project[] = [
     title: "OpenCV Detection Platform",
     description:
       "In-progress computer vision platform that detects patterns through a webcam and drives motors to point at the target. Inspired by Carbon Robotics' laser weeder. Modular detection, tracking, and actuation stages. https://www.youtube.com/watch?v=1fOMy7PcSgg",
-    tech: ["Python", "OpenCV", "Motor Control", "Embedded Systems"],
+    tech: ["Arduino", "Python", "OpenCV", "Motor Control", "Embedded Systems"],
     details: [
         { type: "text", content: "Pipeline is split into independent detection, tracking, and actuation stages so each can be swapped or tuned in isolation. Currently focused on getting reliable tracking of moving targets under varying lighting before integrating the motor control stage." },
         { type: "text", content: "Long-term goal is a small-scale demonstrator inspired by Carbon Robotics' laser weeder - pattern recognition driving a 2-axis aiming mechanism." },
