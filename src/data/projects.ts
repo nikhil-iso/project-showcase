@@ -3,6 +3,63 @@ import { media } from "../lib/media";
 
 export const personalProjects: Project[] = [
   {
+    title: "USST.ca Website Rebuild",
+    description:
+      "Solo rebuild of the University of Saskatchewan Space Design Team's public website, turning it into a responsive, maintainable content platform with a custom admin CMS, project galleries, and Supabase-backed content.",
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "TanStack Query",
+      "Vercel",
+    ],
+    links: [
+      { label: "Live Site", href: "https://www.usst.ca" },
+      { label: "GitHub", href: "https://github.com/usst-president/usst-website-rebuild" },
+    ],
+    details: [
+      {
+        type: "text",
+        content:
+          "I rebuilt USST.ca as a solo software project for the University of Saskatchewan Space Design Team. The goal was to replace the team's old web presence with a modern, responsive site that could clearly present our rocketry and CubeSat projects, history, news, sponsors, and recruitment information.",
+      },
+      {
+        type: "image",
+        ...media.usstWebsiteHome,
+        caption: "Figure 1: Rebuilt USST.ca homepage and primary project and recruiting calls to action.",
+      },
+      {
+        type: "text",
+        content:
+          "I built the frontend with React, TypeScript, Vite, Tailwind CSS, and reusable shadcn-style components. The site includes dedicated pages for projects, project details, the team, news, recruiting, and sponsors, with shared navigation, theming, responsive layouts, and interactive project media galleries.",
+      },
+      {
+        type: "image",
+        ...media.usstWebsiteProjects,
+        caption: "Figure 2: Projects page rendering database-backed project and subsystem information.",
+      },
+      {
+        type: "text",
+        content:
+          "To make the site maintainable after launch, I connected it to Supabase and created a lightweight admin CMS for news posts, team history, projects, sponsors, and gallery media. Public content is read from PostgreSQL through the Supabase client, while protected updates and alumni mailing-list submissions are handled by Edge Functions. The admin flow uses a shared password, rate-limited login attempts, expiring session tokens, and server-side content writes.",
+      },
+      {
+        type: "image",
+        ...media.usstWebsiteAdminCms,
+        caption:
+          "Figure 3: Custom admin CMS for managing news, team history, projects, sponsors, and gallery media.",
+      },
+      {
+        type: "text",
+        content:
+          "This was my first full website rebuild and taught me how the pieces of a production web application fit together: component design, routing, responsive styling, database schemas, storage, authentication, content management, deployment, and documentation. More importantly, I learned to design for the people who would maintain the website after me, not only for the visitors viewing it.",
+      },
+    ],
+  },
+  {
     title: "ARTS - Amateur Rocketry Telemetry System",
     description:
       "ARTS stands for Amateur Rocketry Telemetry System. It is a data collection system designed for Model and High power rocketry. It utilizes an array of sensors and modules onboard a high power rocket to collect and transmit data to a ground station for interpretation and recovery.",

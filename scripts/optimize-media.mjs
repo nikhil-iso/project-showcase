@@ -22,6 +22,21 @@ const imageAssets = [
     output: "usst-welcome-week-booth.webp",
   },
   {
+    key: "usstWebsiteHome",
+    source: "USST Website Home.png",
+    output: "usst-website-home.webp",
+  },
+  {
+    key: "usstWebsiteProjects",
+    source: "USST Website Projects.png",
+    output: "usst-website-projects.webp",
+  },
+  {
+    key: "usstWebsiteAdminCms",
+    source: "USST Website Admin CMS.png",
+    output: "usst-website-admin-cms.webp",
+  },
+  {
     key: "artsPrototype",
     source: "ARTS_prototype.jpg",
     output: "arts-prototype.webp",

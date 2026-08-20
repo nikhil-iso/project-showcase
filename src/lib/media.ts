@@ -33,6 +33,19 @@ function video(path: string, alt: string, poster?: string): VideoMedia {
 export const media = {
   profile: image("profile.webp", "Nikhil Patel profile picture", 512, 683),
   usstWelcomeWeekBooth: image("usst-welcome-week-booth.webp", "USST Welcome Week booth", 1200, 1514),
+  usstWebsiteHome: image("usst-website-home.webp", "Rebuilt USST.ca homepage", 1200, 750),
+  usstWebsiteProjects: image(
+    "usst-website-projects.webp",
+    "USST.ca projects page with project and subsystem information",
+    1200,
+    750,
+  ),
+  usstWebsiteAdminCms: image(
+    "usst-website-admin-cms.webp",
+    "USST.ca content manager showing editable news posts",
+    1200,
+    750,
+  ),
   artsPrototype: image("arts-prototype.webp", "ARTS_prototype", 1200, 1304),
   artsPrototypeVideo: video("arts-prototype-video.mp4", "ARTS_protoboard_vid"),
   simuLightBanner: image("simulight-banner.webp", "SimuLight Sunrise project banner", 1200, 240),
